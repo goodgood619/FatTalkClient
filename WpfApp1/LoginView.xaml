@@ -32,7 +32,7 @@
             <Label Content="ID"  Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Right">
 
             </Label>
-            <TextBox Grid.Row="0" Grid.Column="1" TextChanged="TextBox_TextChanged">
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=ID,UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </TextBox.InputBindings>

@@ -28,7 +28,7 @@ namespace WpfApp1.ViewModel
         public LoginViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
-            ID = string.Empty;
+            //ID = string.Empty;
         }
         public void ResponseMessage(TCPmessage message)
         {
