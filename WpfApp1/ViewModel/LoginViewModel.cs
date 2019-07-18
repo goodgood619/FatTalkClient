@@ -20,7 +20,6 @@ namespace WpfApp1.ViewModel
     {
         private string id;
         public MessengerClient messenger { get; set; }
-        public MainWindow mainWindow { get; set; }
         public string ID
         {
             get { return id; }
@@ -48,7 +47,7 @@ namespace WpfApp1.ViewModel
                 case 0:
                     MessageBox.Show("ID가 틀렸습니다.");
                     break;
-                    case 1:
+                case 1:
                     MessageBox.Show("비밀번호가 틀렸습니다.");
                     break;
                 case 2:
@@ -85,7 +84,23 @@ namespace WpfApp1.ViewModel
                 return command;
             }
         }
-        
+        public ICommand JoinUicommand
+        {
+            get
+            {
+                RelayCommand command = new RelayCommand(Joinmember);
+                return command;
+            }
+        }
+        public void Joinmember()
+        {
+            App.Current.Dispatcher.InvokeAsync(() =>
+            {
+                JoinMember joinMember = new JoinMember();
+                joinMember.Show();
+                //closeWindow();
+            });
+        }
         public void ExecuteLogin(PasswordBox passwordBox)
         {
             string password = passwordBox.Password;

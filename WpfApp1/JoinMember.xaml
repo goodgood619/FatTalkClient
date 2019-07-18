@@ -6,6 +6,9 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="JoinMember" Height="450" Width="800">
+    <Window.DataContext>
+        <Binding Path="join" Source="{StaticResource ViewModelLocator}"/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="150*"/>
@@ -51,25 +54,25 @@
 
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=ID, UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
+                    <KeyBinding Key="Enter" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </TextBox.InputBindings>
             </TextBox>
 
             <PasswordBox Name="Password" Grid.Row="1" Grid.Column="1" >
                 <PasswordBox.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
+                    <KeyBinding Key="Enter" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </PasswordBox.InputBindings>
             </PasswordBox>
 
             <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=NICKNAME,UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
+                    <KeyBinding Key="Enter" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </TextBox.InputBindings>
             </TextBox>
 
             <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=PHONE,UpdateSourceTrigger=PropertyChanged}">
                 <TextBox.InputBindings>
-                    <KeyBinding Key="Enter" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
+                    <KeyBinding Key="Enter" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </TextBox.InputBindings>
             </TextBox>
             <Button Content="아이디 중복 확인" Grid.Row="0" Grid.Column="2" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
@@ -87,8 +90,8 @@
                 <RowDefinition Height="40*"/>
             </Grid.RowDefinitions>
 
-            <Button Content="회원 가입" Grid.Row="0" Grid.Column="1" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
-            <Button Content="뒤로 가기" Grid.Row="0" Grid.Column="2" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
+            <Button Content="회원 가입" Grid.Row="0" Grid.Column="1" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
+            <Button Content="뒤로 가기" Grid.Row="0" Grid.Column="2"/>
         </Grid>
         
     </Grid>

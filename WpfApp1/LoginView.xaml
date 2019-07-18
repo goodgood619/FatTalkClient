@@ -30,9 +30,9 @@
 
             </Grid.ColumnDefinitions>
             <Label Content="ID"  Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Right">
-                
+
             </Label>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=ID,UpdateSourceTrigger=PropertyChanged}">
+            <TextBox Grid.Row="0" Grid.Column="1" TextChanged="TextBox_TextChanged">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </TextBox.InputBindings>
@@ -40,12 +40,12 @@
         </Grid>
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100*"/>
-                <ColumnDefinition Width="150*"/>
-                <ColumnDefinition Width="100*"/>
+                <ColumnDefinition Width="226*"/>
+                <ColumnDefinition Width="339"/>
+                <ColumnDefinition Width="227*"/>
 
             </Grid.ColumnDefinitions>
-            
+
             <Label Content="Password"  Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Right">
 
             </Label>
@@ -59,12 +59,12 @@
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
-                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="30*"/>
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
-            
-            <Button Content="회원 가입" Grid.Row="0" Grid.Column="1" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
+
+            <Button Content="회원 가입" Grid.Row="0" Grid.Column="1" Command="{Binding Path=JoinUicommand}"/>
             <Button Content="아이디/비밀번호 찾기" Grid.Row="0" Grid.Column="2" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
         </Grid>
     </Grid>

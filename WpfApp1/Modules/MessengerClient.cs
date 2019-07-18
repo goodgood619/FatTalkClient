@@ -19,7 +19,22 @@ namespace WpfApp1.Modules
             return Send(message);
         }
 
-
+        public bool requestIdcheck(string id)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Idcheck;
+            message.message = json.idcheckinfo(id);
+            return Send(message);
+        }
+        public bool requestJoin(string id,string password,string nickname,string phone)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Join;
+            message.message = json.joininfo(id, password, nickname, phone);
+            return Send(message);
+        }
         public override void ResponseMessage(TCPmessage message)
         {
             if (domessage != null)

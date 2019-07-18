@@ -21,8 +21,11 @@ namespace WpfApp1.ViewModel
             //ServiceLocator.SetLocatorProvider(()=>(IServiceLocator)SimpleIoc.Default);
             SimpleIoc.Default.Register<Imessanger, MessangerService>();
             SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<JoinMember>();
         }
         public LoginViewModel login => SimpleIoc.Default.GetInstance<LoginViewModel>();
+        public JoinMember join => SimpleIoc.Default.GetInstance<JoinMember>();
+
         public static void cleanup()
         {
 

@@ -45,5 +45,7 @@ namespace WpfApp1.Models
         Null,
         login,
         logout,
+        Join,
+        Idcheck,
     }
 }

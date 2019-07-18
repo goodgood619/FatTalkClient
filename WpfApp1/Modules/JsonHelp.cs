@@ -18,7 +18,21 @@ namespace WpfApp1.Modules
             return ret.ToString();
         }
 
-
+        public string idcheckinfo(string id)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.ID, id));
+            return ret.ToString();
+        }
+        public string joininfo(string id,string password,string nickname,string phone)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.ID, id));
+            ret.Add(new JsonStringValue(Jsonname.Password, password));
+            ret.Add(new JsonStringValue(Jsonname.Nickname, nickname));
+            ret.Add(new JsonStringValue(Jsonname.Phone, phone));
+            return ret.ToString();
+        }
         public class Jsonname
         {
             public const string ID = "ID";
