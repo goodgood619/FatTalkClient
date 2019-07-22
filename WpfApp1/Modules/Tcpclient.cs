@@ -20,7 +20,7 @@ namespace WpfApp1.Modules
         {
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             data = new byte[32000];
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.35.56"),33212);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.35.84"),33212);
             client.BeginConnect(ep, connect_callback, null);
         }
 
@@ -32,7 +32,6 @@ namespace WpfApp1.Modules
 
         private void receive_callback(IAsyncResult ar)
         {
-            client.EndReceive(ar);
             try
             {
                 TCPmessage receivemessage = new TCPmessage(data);
@@ -61,10 +60,12 @@ namespace WpfApp1.Modules
             }
             return ok;
         }
+        
         private void send_callback(IAsyncResult ar)
         {
             try
             {
+                
                 client.EndSend(ar);
 
             }

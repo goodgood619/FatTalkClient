@@ -51,6 +51,7 @@ namespace WpfApp1.ViewModel
                     MessageBox.Show("비밀번호가 틀렸습니다.");
                     break;
                 case 2:
+                    MessageBox.Show("뚱톡에 오신걸 환영합니다.");
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         MainView mainview = new MainView();
