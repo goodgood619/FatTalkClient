@@ -109,6 +109,7 @@
     <Compile Include="Modules\Tcpclient.cs" />
     <Compile Include="Service\Imessanger.cs" />
     <Compile Include="Service\MessangerService.cs" />
+    <Compile Include="ViewModel\ChatViewModel.cs" />
     <Compile Include="ViewModel\JoinViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />

@@ -24,7 +24,6 @@ namespace WpfApp1
     {
         public MainWindow()
         {
-            //this.DataContext = new LoginViewModel();
             InitializeComponent();
            
         }

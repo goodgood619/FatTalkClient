@@ -28,7 +28,7 @@ namespace WpfApp1.ViewModel
         public LoginViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
-            //ID = string.Empty;
+            ID = string.Empty;
         }
         public void ResponseMessage(TCPmessage message)
         {
@@ -61,6 +61,9 @@ namespace WpfApp1.ViewModel
                     });
                     
                     break;
+                case 3:
+                    MessageBox.Show("ID 그리고 비밀번호가 둘다 틀렸습니다.");
+                    break;
             }
         }
 
@@ -85,6 +88,7 @@ namespace WpfApp1.ViewModel
                 return command;
             }
         }
+        
         public ICommand JoinUicommand
         {
             get
@@ -95,13 +99,10 @@ namespace WpfApp1.ViewModel
         }
         public void Joinmember()
         {
-            App.Current.Dispatcher.InvokeAsync(() =>
-            {
-                JoinMember joinMember = new JoinMember();
-                joinMember.Show();
-                //closeWindow();
-            });
+            JoinMember joinMember = new JoinMember();
+            joinMember.ShowDialog();
         }
+        
         public void ExecuteLogin(PasswordBox passwordBox)
         {
             string password = passwordBox.Password;

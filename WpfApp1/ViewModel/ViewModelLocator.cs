@@ -18,13 +18,17 @@ namespace WpfApp1.ViewModel
         public ViewModelLocator()
         {
 
-            //ServiceLocator.SetLocatorProvider(()=>(IServiceLocator)SimpleIoc.Default);
+            //ServiceLocator.SetLocatorProvider(()=>SimpleIoc.Default);
             SimpleIoc.Default.Register<Imessanger, MessangerService>();
             SimpleIoc.Default.Register<LoginViewModel>();
-            SimpleIoc.Default.Register<JoinMember>();
+            SimpleIoc.Default.Register<JoinViewModel>();
+            SimpleIoc.Default.Register<MainViewModel>();
+            SimpleIoc.Default.Register<ChatViewModel>();
         }
         public LoginViewModel login => SimpleIoc.Default.GetInstance<LoginViewModel>();
-        public JoinMember join => SimpleIoc.Default.GetInstance<JoinMember>();
+        public JoinViewModel join => SimpleIoc.Default.GetInstance<JoinViewModel>();
+        public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
+        public ChatViewModel Chat => SimpleIoc.Default.GetInstance<ChatViewModel>();
 
         public static void cleanup()
         {

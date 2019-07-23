@@ -75,7 +75,7 @@
                     <KeyBinding Key="Enter" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <Button Content="아이디 중복 확인" Grid.Row="0" Grid.Column="2" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
+            <Button Content="아이디 중복 확인" Grid.Row="0" Grid.Column="2" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>

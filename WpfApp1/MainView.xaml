@@ -6,7 +6,58 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800">
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource ViewModelLocator}"/>
+    </Window.DataContext>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="500*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330*"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="200*"/>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Button Content="새로고침" Grid.Row="0" Grid.Column="0" Command="{Binding Path=Freshcommand}"/>
+                    <Button Content="로그아웃" Grid.Row="0" Grid.Column="1" Command="{Binding Path=Logoutcommand}"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Label Content="친구 목록" FontSize="25" HorizontalContentAlignment="Center">
+                        
+                    </Label>
+                </Grid>
+                <Grid Grid.Row="2">
+                    
+                </Grid>
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="50*"/>
+                        <ColumnDefinition Width="50*"/>
+                    </Grid.ColumnDefinitions>
+                    <Button Content="친구추가" Grid.Row="3" Grid.Column="0" Command="{Binding Path=Plusfriendcommand}"/>
+                    <Button Content="친구삭제" Grid.Row="3" Grid.Column="1" Command="{Binding Path=Deletefriendcommand}"/>
+                </Grid>
+                <Grid Grid.Row="4">
+                    <Button Content="채팅하기" Command="{Binding Path=Chatfriendcommand}"/>
+                </Grid>
+            </Grid>
+            
+
+        </Grid>
     </Grid>
 </Window>
