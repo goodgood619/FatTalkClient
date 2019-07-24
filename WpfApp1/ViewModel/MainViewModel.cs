@@ -82,7 +82,10 @@ namespace WpfApp1.ViewModel
         }
         public void Executelogout()
         {
-
+            if (messengerClient.requestLogout())
+            {
+                MessageBox.Show("로그아웃되었습니다.");
+            }
         }
         public ICommand Plusfriendcommand
         {

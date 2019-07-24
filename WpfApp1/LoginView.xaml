@@ -64,8 +64,8 @@
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
 
-            <Button Content="회원 가입" Grid.Row="0" Grid.Column="1" Command="{Binding Path=JoinUicommand}"/>
-            <Button Content="아이디/비밀번호 찾기" Grid.Row="0" Grid.Column="2" Command="{Binding Path=logincommand}" CommandParameter="{Binding ElementName=Password}"/>
+            <Button Content="회원 가입" Grid.Row="0" Grid.Column="1" Command="{Binding Path = JoinUicommand}"/>
+            <Button Content="아이디/비밀번호 찾기" Grid.Row="0" Grid.Column="2" Command="{Binding Path = FindIdcommand}"/>
         </Grid>
     </Grid>
 </Window>

@@ -96,6 +96,9 @@
     <Compile Include="ChatView.xaml.cs">
       <DependentUpon>ChatView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Findlogininfo.xaml.cs">
+      <DependentUpon>Findlogininfo.xaml</DependentUpon>
+    </Compile>
     <Compile Include="JoinMember.xaml.cs">
       <DependentUpon>JoinMember.xaml</DependentUpon>
     </Compile>
@@ -103,6 +106,7 @@
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\TCPmessage.cs" />
+    <Compile Include="Models\Userdata.cs" />
     <Compile Include="Modules\JsonHelp.cs" />
     <Compile Include="Modules\JsonParse.cs" />
     <Compile Include="Modules\MessengerClient.cs" />
@@ -110,11 +114,16 @@
     <Compile Include="Service\Imessanger.cs" />
     <Compile Include="Service\MessangerService.cs" />
     <Compile Include="ViewModel\ChatViewModel.cs" />
+    <Compile Include="ViewModel\FindlogininfoViewModel.cs" />
     <Compile Include="ViewModel\JoinViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="ChatView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Findlogininfo.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

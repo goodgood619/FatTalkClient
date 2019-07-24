@@ -35,6 +35,21 @@ namespace WpfApp1.Modules
             message.message = json.joininfo(id, password, nickname, phone);
             return Send(message);
         }
+        public bool requestFindid(string id)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Findid;
+            message.message = json.idcheckinfo(id);
+            return Send(message);
+        }
+        public bool requestLogout()
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.logout;
+            return Send(message);
+        }
         public override void ResponseMessage(TCPmessage message)
         {
             if (domessage != null)

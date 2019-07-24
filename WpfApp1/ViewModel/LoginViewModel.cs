@@ -102,7 +102,19 @@ namespace WpfApp1.ViewModel
             JoinMember joinMember = new JoinMember();
             joinMember.ShowDialog();
         }
-        
+        public ICommand FindIdcommand
+        {
+            get
+            {
+                RelayCommand command = new RelayCommand(Findid);
+                return command;
+            }
+        }
+        public void Findid()
+        {
+            Findlogininfo findlogininfo = new Findlogininfo();
+            findlogininfo.ShowDialog();
+        }
         public void ExecuteLogin(PasswordBox passwordBox)
         {
             string password = passwordBox.Password;

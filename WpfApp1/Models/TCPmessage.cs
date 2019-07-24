@@ -47,5 +47,6 @@ namespace WpfApp1.Models
         logout,
         Join,
         Idcheck,
+        Findid
     }
 }
