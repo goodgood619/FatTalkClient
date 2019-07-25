@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input; //Icommand 만들기 관련
 
+using System.Collections.ObjectModel;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
@@ -21,6 +22,8 @@ namespace WpfApp1.ViewModel
     {
         private string id;
         public MessengerClient messenger { get; set; }
+        public ObservableCollection<Finddata> Findinfo { get; set; }
+
         public string ID
         {
             get {return id;}
@@ -36,17 +39,25 @@ namespace WpfApp1.ViewModel
             switch (tcpmessage.Command)
             {
                 case Command.Findid:
-                    ValidFindlogininfo();
+                    ValidFindlogininfo(tcpmessage.message,tcpmessage.check);
                     break;
             }
         }
-        public void ValidFindlogininfo()
+        public void ValidFindlogininfo(string message, int check)
         {
-            //여기서 무언가 하는건가
+            switch (check) {
+                //여기서 무언가 하는건가(UI에 할내용을 넣어주면됨)
+                case 0:
+                    MessageBox.Show("ID가 존재하지 않습니다. 다시 입력해주세요");
+                    break;
+                case 1:
             App.Current.Dispatcher.InvokeAsync(() =>
             {
 
+                Findinfo.Add((,));
             });
+                    break;
+        }
         }
 
         public ICommand Findidinfocommand

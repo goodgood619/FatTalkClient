@@ -105,6 +105,7 @@
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Finddata.cs" />
     <Compile Include="Models\TCPmessage.cs" />
     <Compile Include="Models\Userdata.cs" />
     <Compile Include="Modules\JsonHelp.cs" />
