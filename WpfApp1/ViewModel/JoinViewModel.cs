@@ -93,6 +93,14 @@ namespace WpfApp1.ViewModel
                 return relayCommand;
             }
         }
+        public ICommand Backlogincommand
+        {
+            get
+            {
+                RelayCommand relayCommand = new RelayCommand(Executebacklogin);
+                return relayCommand;
+            }
+        }
         public void ExecuteIdcheck() //send관련 메소드
         {
             if (string.IsNullOrEmpty(id))
@@ -107,7 +115,7 @@ namespace WpfApp1.ViewModel
         public void ExecuteJoin(PasswordBox passwordBox) //send관련 메소드
         {
             string password = passwordBox.Password;
-            
+
             if (string.IsNullOrEmpty(id))
             {
                 MessageBox.Show("ID를 입력하세용");
@@ -124,7 +132,7 @@ namespace WpfApp1.ViewModel
             {
                 MessageBox.Show("폰번호를 입력하세용");
             }
-            else if(!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(nickname) && !string.IsNullOrEmpty(phone))
+            else if (!string.IsNullOrEmpty(id) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(nickname) && !string.IsNullOrEmpty(phone))
             {
                 messengerClient.requestJoin(id, password, nickname, phone);
             }
@@ -133,5 +141,23 @@ namespace WpfApp1.ViewModel
                 MessageBox.Show("위의 4개중 하나이상 입력에서 누락되었습니다. 채우지 않은부분은 입력을 해주세요");
             }
         }
+        public void Executebacklogin()
+        {
+            closeWindow();
+        }
+        public void closeWindow()
+        {
+            App.Current.Dispatcher.InvokeAsync(() =>
+            {
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.DataContext == this)
+                    {
+                        window.Close();
+                    }
+                }
+            });
+        }
+
     }
 }
