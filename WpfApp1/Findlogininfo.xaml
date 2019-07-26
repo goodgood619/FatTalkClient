@@ -33,7 +33,7 @@
                 <Label Content="ID" Grid.Row="1" Grid.Column="0" FontSize="15" HorizontalContentAlignment="Right"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=ID,UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
-                        <KeyBinding Key="Enter" Command="{Binding Path=Findidinfocommand}" CommandParameter="{Binding ElementName=ID}"/>
+                        <KeyBinding Key="Enter" Command="{Binding Path=Findidinfocommand}"/>
                     </TextBox.InputBindings>
                 </TextBox>
                 <Button Content="찾기" Grid.Row="1" Grid.Column="2" Command="{Binding Path=Findidinfocommand}"/>

@@ -23,7 +23,7 @@ namespace WpfApp1.ViewModel
         private string id;
         public MessengerClient messenger { get; set; }
         public ObservableCollection<Finddata> Findinfo { get; set; }
-
+        public JsonHelp jsonHelp = new JsonHelp();
         public string ID
         {
             get {return id;}
@@ -32,7 +32,8 @@ namespace WpfApp1.ViewModel
         public FindlogininfoViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
-            
+            Findinfo = new ObservableCollection<Finddata>();
+
         }
         public void ResponseMessage(TCPmessage tcpmessage)
         {
@@ -51,10 +52,12 @@ namespace WpfApp1.ViewModel
                     MessageBox.Show("ID가 존재하지 않습니다. 다시 입력해주세요");
                     break;
                 case 1:
+                 Dictionary<string, string> getlogininfo = jsonHelp.getlogininfo(message);
+                 string findid = getlogininfo[Jsonname.ID];
+                 string findpassword = getlogininfo[Jsonname.Password];
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-
-                Findinfo.Add((,));
+                Findinfo.Add(new Finddata(findid,findpassword));
             });
                     break;
         }
@@ -76,7 +79,7 @@ namespace WpfApp1.ViewModel
             }
             else
             {
-                if (!messenger.requestIdcheck(id))
+                if (!messenger.requestFindid(id))
                 {
                     MessageBox.Show("서버와 연결이 끊겼습니다.");
 

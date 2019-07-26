@@ -10,6 +10,11 @@ namespace WpfApp1.Modules
 {
     public class JsonHelp
     {
+        private JsonHelp jsonHelp;
+        public JsonHelp()
+        {
+            
+        }
         public string logininfo(string id,string password)
         {
             JsonObjectCollection ret = new JsonObjectCollection();
@@ -33,12 +38,20 @@ namespace WpfApp1.Modules
             ret.Add(new JsonStringValue(Jsonname.Phone, phone));
             return ret.ToString();
         }
-        public class Jsonname
+        public Dictionary<string, string> getlogininfo(string data)
         {
-            public const string ID = "ID";
-            public const string Password = "Password";
-            public const string Nickname = "Nickname";
-            public const string Phone = "Phone";
+            Dictionary<string, string> ret = new Dictionary<string, string>();
+            JsonParse jsonParse = new JsonParse(data);
+            ret.Add(Jsonname.ID, jsonParse.GetstringValue(Jsonname.ID));
+            ret.Add(Jsonname.Password, jsonParse.GetstringValue(Jsonname.Password));
+            return ret;
         }
+    }
+    public class Jsonname
+    {
+        public const string ID = "ID";
+        public const string Password = "Password";
+        public const string Nickname = "Nickname";
+        public const string Phone = "Phone";
     }
 }
