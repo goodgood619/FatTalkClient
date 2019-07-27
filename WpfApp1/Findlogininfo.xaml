@@ -44,33 +44,19 @@
                     <RowDefinition Height="100*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>
-                    <ListBox ItemsSource="{Binding Path=Findinfo}" >
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="ID:" TextAlignment="Left"/>
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Findid}"/>
-                                </StackPanel>
-                            </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-               </Grid>
-                <Grid Grid.Row="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>
                     <ListBox ItemsSource="{Binding Path=Findinfo}" >
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Password:" TextAlignment="Left"/>
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{Binding Path=Findpassword}"/>
-                                </StackPanel>
+                                <TextBlock Grid.Row="0" Text="{Binding Path=Findid}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <ListBox ItemsSource="{Binding Path=Findinfo}" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Grid.Row="1" Text="{Binding Path=Findpassword}"/>
                             </DataTemplate>
                         </ListBox.ItemTemplate>
                     </ListBox>

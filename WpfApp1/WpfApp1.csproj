@@ -105,6 +105,8 @@
     <Compile Include="MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\Chatdata.cs" />
+    <Compile Include="Models\Chatroom.cs" />
     <Compile Include="Models\Finddata.cs" />
     <Compile Include="Models\TCPmessage.cs" />
     <Compile Include="Models\Userdata.cs" />

@@ -79,6 +79,7 @@ namespace WpfApp1.ViewModel
             }
             else
             {
+                if (Findinfo.Count > 0) Findinfo.RemoveAt(0); // 계속 list가 쌓여가지고 어쩔수 없이 또 버튼을 누르게 되면 제거
                 if (!messenger.requestFindid(id))
                 {
                     MessageBox.Show("서버와 연결이 끊겼습니다.");

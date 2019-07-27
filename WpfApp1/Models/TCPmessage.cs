@@ -40,6 +40,7 @@ namespace WpfApp1.Models
             return bytedata.ToArray();
         }
     }
+    
     public enum Command
     {
         Null,
@@ -47,6 +48,13 @@ namespace WpfApp1.Models
         logout,
         Join,
         Idcheck,
-        Findid
+        Findid,
+        Makechat, 
+        Outchat,
+        Joinchat,
+        Refresh,
+        Plusfriend,
+        Removefriend,
+        Sendchat
     }
 }
