@@ -9,7 +9,12 @@ namespace WpfApp1.Modules
     public class MessengerClient :Tcpclient
     {
         public Action<TCPmessage> domessage { get; set; }
-
+        public Userdata userdata { get; set; }
+        public MessengerClient()
+        {
+            domessage = null;
+            userdata = new Userdata();
+        }
         public bool requestLogin(string id,string password)
         {
             TCPmessage message = new TCPmessage();
@@ -35,6 +40,14 @@ namespace WpfApp1.Modules
             message.message = json.joininfo(id, password, nickname, phone);
             return Send(message);
         }
+        public bool requestNicknamecheck(string nickname)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Nicknamecheck;
+            message.message = json.nicknamecheckinfo(nickname);
+            return Send(message);
+        }
         public bool requestFindid(string id)
         {
             TCPmessage message = new TCPmessage();
@@ -48,6 +61,14 @@ namespace WpfApp1.Modules
             TCPmessage message = new TCPmessage();
             JsonHelp json = new JsonHelp();
             message.Command = Command.logout;
+            return Send(message);
+        }
+        public bool requestPlusfriend(string plusfriendid)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Plusfriend;
+            message.message = json.idcheckinfo(plusfriendid);
             return Send(message);
         }
         public override void ResponseMessage(TCPmessage message)

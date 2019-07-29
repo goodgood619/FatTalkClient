@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input; //Icommand 만들기 관련
@@ -20,6 +20,8 @@ namespace WpfApp1.ViewModel
     {
         private string id;
         public MessengerClient messenger { get; set; }
+        public ObservableCollection<Finddata> Findinfo { get; set; }
+        public ObservableCollection<Userdata> Userinfo { get; set; }
         public string ID
         {
             get { return id; }
@@ -28,6 +30,7 @@ namespace WpfApp1.ViewModel
         public LoginViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
+            Userinfo = new ObservableCollection<Userdata>();
             ID = string.Empty;
         }
         public void ResponseMessage(TCPmessage message)
@@ -35,12 +38,12 @@ namespace WpfApp1.ViewModel
             switch (message.Command)
             {
                 case Command.login:
-                    Validate(message.check);
+                    Validate(message.check,message.Usernumber,message.message);
                     break;
             }
 
         }
-        public void Validate(int check)
+        public void Validate(int check,int Usernumber,string nickname)
         {
             switch (check)
             {
@@ -52,14 +55,14 @@ namespace WpfApp1.ViewModel
                     break;
                 case 2:
                     MessageBox.Show("뚱톡에 오신걸 환영합니다.");
+                    messenger.userdata.number = Usernumber;
+                    messenger.userdata.nickname = nickname;
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         MainView mainview = new MainView();
                         mainview.Show();
-                        closeWindow();
-
                     });
-                    
+                    closeWindow();
                     break;
                 case 3:
                     MessageBox.Show("ID 그리고 비밀번호가 둘다 틀렸습니다.");
@@ -99,8 +102,12 @@ namespace WpfApp1.ViewModel
         }
         public void Joinmember()
         {
+            App.Current.Dispatcher.InvokeAsync(() => 
+            {
             JoinMember joinMember = new JoinMember();
             joinMember.ShowDialog();
+            });
+            
         }
         public ICommand FindIdcommand
         {

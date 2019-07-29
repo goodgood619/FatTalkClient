@@ -50,8 +50,23 @@ namespace WpfApp1.ViewModel
                 case Command.Idcheck:
                     Validid(tcpmessage.check);
                     break;
+                case Command.Nicknamecheck:
+                    Validnickname(tcpmessage.check);
+                    break;
             }
 
+        }
+        public void Validnickname(int check)
+        {
+            switch (check)
+            {
+                case 0:
+                    MessageBox.Show("닉네임이 중복됩니다.");
+                    break;
+                case 1:
+                    MessageBox.Show("사용가능한 닉네임입니다.");
+                    break;
+            }
         }
         public void Validjoin(int check)
         {
@@ -99,6 +114,25 @@ namespace WpfApp1.ViewModel
             {
                 RelayCommand relayCommand = new RelayCommand(Executebacklogin);
                 return relayCommand;
+            }
+        }
+        public ICommand Nicknamecheckcommand
+        {
+            get
+            {
+                RelayCommand relayCommand = new RelayCommand(ExecuteNicknamecommand);
+                return relayCommand;
+            }
+        }
+        public void ExecuteNicknamecommand()
+        {
+            if (string.IsNullOrEmpty(nickname))
+            {
+                MessageBox.Show("닉네임을 입력하세용");
+            }
+            else
+            {
+                messengerClient.requestNicknamecheck(nickname);
             }
         }
         public void ExecuteIdcheck() //send관련 메소드

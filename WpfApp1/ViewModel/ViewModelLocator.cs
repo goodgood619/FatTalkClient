@@ -25,12 +25,14 @@ namespace WpfApp1.ViewModel
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<ChatViewModel>();
             SimpleIoc.Default.Register<FindlogininfoViewModel>();
+            SimpleIoc.Default.Register<PlusfriendViewModel>();
         }
         public LoginViewModel login => SimpleIoc.Default.GetInstance<LoginViewModel>();
         public JoinViewModel join => SimpleIoc.Default.GetInstance<JoinViewModel>();
         public MainViewModel Main => SimpleIoc.Default.GetInstance<MainViewModel>();
         public ChatViewModel Chat => SimpleIoc.Default.GetInstance<ChatViewModel>();
         public FindlogininfoViewModel FindIdPassword => SimpleIoc.Default.GetInstance<FindlogininfoViewModel>();
+        public PlusfriendViewModel Plusfriend => SimpleIoc.Default.GetInstance<PlusfriendViewModel>();
         public static void cleanup()
         {
 

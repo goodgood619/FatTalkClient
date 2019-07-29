@@ -38,6 +38,12 @@ namespace WpfApp1.Modules
             ret.Add(new JsonStringValue(Jsonname.Phone, phone));
             return ret.ToString();
         }
+        public string nicknamecheckinfo(string nickname)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.Nickname, nickname));
+            return ret.ToString();
+        }
         public Dictionary<string, string> getlogininfo(string data)
         {
             Dictionary<string, string> ret = new Dictionary<string, string>();
@@ -53,5 +59,6 @@ namespace WpfApp1.Modules
         public const string Password = "Password";
         public const string Nickname = "Nickname";
         public const string Phone = "Phone";
+        public const string Usernumber = "Usernumber";
     }
 }

@@ -42,7 +42,36 @@
                     </Label>
                 </Grid>
                 <Grid Grid.Row="2">
-                    
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="80*"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="친구들: " Grid.Row="0" Grid.Column="0"></Label>
+                        <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=Fcnt, UpdateSourceTrigger=PropertyChanged}"/>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="30*"/>
+                            <ColumnDefinition Width="70*"/>
+                        </Grid.ColumnDefinitions>
+                        <Label Content="닉네임: " Grid.Row="1" Grid.Column="0"></Label>
+                        <Label Grid.Row="1" Grid.Column="1" ></Label>
+                    </Grid>
+                    <Grid Grid.Row="2">
+                        <ListBox ItemsSource="{Binding Path=Friendlist}">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Path=Fnickname}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
                 </Grid>
                 <Grid Grid.Row="3">
                     <Grid.ColumnDefinitions>

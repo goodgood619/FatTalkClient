@@ -108,12 +108,16 @@
     <Compile Include="Models\Chatdata.cs" />
     <Compile Include="Models\Chatroom.cs" />
     <Compile Include="Models\Finddata.cs" />
+    <Compile Include="Models\Frienddata.cs" />
     <Compile Include="Models\TCPmessage.cs" />
     <Compile Include="Models\Userdata.cs" />
     <Compile Include="Modules\JsonHelp.cs" />
     <Compile Include="Modules\JsonParse.cs" />
     <Compile Include="Modules\MessengerClient.cs" />
     <Compile Include="Modules\Tcpclient.cs" />
+    <Compile Include="PlusfriendView.xaml.cs">
+      <DependentUpon>PlusfriendView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service\Imessanger.cs" />
     <Compile Include="Service\MessangerService.cs" />
     <Compile Include="ViewModel\ChatViewModel.cs" />
@@ -121,6 +125,7 @@
     <Compile Include="ViewModel\JoinViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
+    <Compile Include="ViewModel\PlusfriendViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="ChatView.xaml">
       <SubType>Designer</SubType>
@@ -147,6 +152,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PlusfriendView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input; //Icommand 만들기 관련
@@ -21,11 +22,20 @@ namespace WpfApp1.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public MessengerClient messengerClient { get; set; }
-
+        public ObservableCollection<Frienddata> Friendlist { get; set; } 
+        public ObservableCollection<Finddata> Findinfo { get; set; }
+        private int fcnt = 0;
         public MainViewModel(Imessanger imessanger)
         {
             messengerClient = imessanger.GetMessenger(ResponseMessage);
+            Friendlist = new ObservableCollection<Frienddata>();
+           // Findinfo = new ObservableCollection<Finddata>();
+        }
 
+        public int Fcnt
+        {
+            get { return fcnt; }
+            set { value = fcnt;RaisePropertyChanged("Fcnt"); }
         }
         public void closeWindow()
         {
@@ -97,6 +107,11 @@ namespace WpfApp1.ViewModel
         }
         public void Executeplusfriend()
         {
+            App.Current.Dispatcher.InvokeAsync(() =>
+            {
+                PlusfriendView plusfriendView = new PlusfriendView();
+                plusfriendView.Show();
+            });
 
         }
         public ICommand Deletefriendcommand
