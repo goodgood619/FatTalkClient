@@ -20,7 +20,7 @@ namespace WpfApp1.Modules
         {
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             data = new byte[32000];
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.35.76"),33212);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("0.0.0.0"),33212); // ServerIp
             client.BeginConnect(ep, connect_callback, null);
         }
 
