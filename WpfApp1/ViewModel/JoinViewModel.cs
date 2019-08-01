@@ -22,19 +22,20 @@ namespace WpfApp1.ViewModel
         private string nickname;
         private string phone;
         public MessengerClient messengerClient;
-        public string ID {
+        public string ID
+        {
             get { return id; }
-            set { id = value; RaisePropertyChanged("ID");}
+            set { id = value; RaisePropertyChanged("ID"); }
         }
         public string NICKNAME
         {
             get { return nickname; }
-            set { nickname = value;RaisePropertyChanged("NICKNAME");}
+            set { nickname = value; RaisePropertyChanged("NICKNAME"); }
         }
         public string PHONE
         {
-            get { return phone;}
-            set { phone = value;RaisePropertyChanged("PHONE");}
+            get { return phone; }
+            set { phone = value; RaisePropertyChanged("PHONE"); }
         }
         public JoinViewModel(Imessanger imessanger)
         {
@@ -43,7 +44,8 @@ namespace WpfApp1.ViewModel
         }
         public void ResponseMessage(TCPmessage tcpmessage)
         {
-            switch (tcpmessage.Command) {
+            switch (tcpmessage.Command)
+            {
                 case Command.Join:
                     Validjoin(tcpmessage.check);
                     break;
@@ -70,7 +72,8 @@ namespace WpfApp1.ViewModel
         }
         public void Validjoin(int check)
         {
-            switch (check) {
+            switch (check)
+            {
                 case 0: //중복버튼 안누르고 할수도 있기 때문에 마지막도 체크를 해줘야 함
                     MessageBox.Show("ID가 중복됩니다.");
                     break;
@@ -103,7 +106,8 @@ namespace WpfApp1.ViewModel
         }
         public ICommand JoinMembercommand //send용
         {
-            get {
+            get
+            {
                 RelayCommand<PasswordBox> relayCommand = new RelayCommand<PasswordBox>(ExecuteJoin);
                 return relayCommand;
             }

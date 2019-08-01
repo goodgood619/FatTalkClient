@@ -18,7 +18,7 @@ using WpfApp1.Service;
 
 namespace WpfApp1.ViewModel
 {
-    public class FindlogininfoViewModel :ViewModelBase
+    public class FindlogininfoViewModel : ViewModelBase
     {
         private string id;
         public MessengerClient messenger { get; set; }
@@ -26,8 +26,8 @@ namespace WpfApp1.ViewModel
         public JsonHelp jsonHelp = new JsonHelp();
         public string ID
         {
-            get {return id;}
-            set { id = value; RaisePropertyChanged("ID");}
+            get { return id; }
+            set { id = value; RaisePropertyChanged("ID"); }
         }
         public FindlogininfoViewModel(Imessanger imessanger)
         {
@@ -40,27 +40,28 @@ namespace WpfApp1.ViewModel
             switch (tcpmessage.Command)
             {
                 case Command.Findid:
-                    ValidFindlogininfo(tcpmessage.message,tcpmessage.check);
+                    ValidFindlogininfo(tcpmessage.message, tcpmessage.check);
                     break;
             }
         }
         public void ValidFindlogininfo(string message, int check)
         {
-            switch (check) {
+            switch (check)
+            {
                 //여기서 무언가 하는건가(UI에 할내용을 넣어주면됨)
                 case 0:
                     MessageBox.Show("ID가 존재하지 않습니다. 다시 입력해주세요");
                     break;
                 case 1:
-                 Dictionary<string, string> getlogininfo = jsonHelp.getlogininfo(message);
-                 string findid = getlogininfo[Jsonname.ID];
-                 string findpassword = getlogininfo[Jsonname.Password];
-            App.Current.Dispatcher.InvokeAsync(() =>
-            {
-                Findinfo.Add(new Finddata(findid,findpassword));
-            });
+                    Dictionary<string, string> getlogininfo = jsonHelp.getlogininfo(message);
+                    string findid = getlogininfo[Jsonname.ID];
+                    string findpassword = getlogininfo[Jsonname.Password];
+                    App.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        Findinfo.Add(new Finddata(findid, findpassword));
+                    });
                     break;
-        }
+            }
         }
 
         public ICommand Findidinfocommand

@@ -10,7 +10,7 @@ using WpfApp1.Models;
 using WpfApp1.Modules;
 namespace WpfApp1.Modules
 {
-  // test this
+    // test this
     public abstract class Tcpclient
     {
         public abstract void ResponseMessage(TCPmessage tcpmessage);
@@ -20,14 +20,14 @@ namespace WpfApp1.Modules
         {
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             data = new byte[32000];
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("0.0.0.0"),33212); // ServerIp
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.35.242"), 33212);
             client.BeginConnect(ep, connect_callback, null);
         }
 
         private void connect_callback(IAsyncResult ar)
         {
             client.EndConnect(ar);
-            client.BeginReceive(data, 0, data.Length, 0, receive_callback,null);
+            client.BeginReceive(data, 0, data.Length, 0, receive_callback, null);
         }
 
         private void receive_callback(IAsyncResult ar)
@@ -39,7 +39,7 @@ namespace WpfApp1.Modules
                 ResponseMessage(receivemessage);
                 client.BeginReceive(data, 0, data.Length, 0, receive_callback, null);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
@@ -54,18 +54,18 @@ namespace WpfApp1.Modules
                 client.BeginSend(bytesend, 0, bytesend.Length, 0, send_callback, null);
                 ok = true;
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Console.WriteLine(e.ToString());
             }
             return ok;
         }
-        
+
         private void send_callback(IAsyncResult ar)
         {
             try
             {
-                
+
                 client.EndSend(ar);
 
             }

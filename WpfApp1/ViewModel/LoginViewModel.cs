@@ -20,17 +20,18 @@ namespace WpfApp1.ViewModel
     {
         private string id;
         public MessengerClient messenger { get; set; }
-        public ObservableCollection<Finddata> Findinfo { get; set; }
-        public ObservableCollection<Userdata> Userinfo { get; set; }
+        //public ObservableCollection<Userdata> Userinfo { get; set; }
+        public ObservableCollection<Frienddata> Friendlist { get; set; }
         public string ID
         {
             get { return id; }
-            set { id = value;  RaisePropertyChanged("ID"); } //RaiseProperty가 실행이 안됨
+            set { id = value; RaisePropertyChanged("ID"); } //RaiseProperty가 실행이 안됨
         }
         public LoginViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
-            Userinfo = new ObservableCollection<Userdata>();
+            //Userinfo = new ObservableCollection<Userdata>();
+            Friendlist = imessanger.frienddatas();
             ID = string.Empty;
         }
         public void ResponseMessage(TCPmessage message)
@@ -38,12 +39,12 @@ namespace WpfApp1.ViewModel
             switch (message.Command)
             {
                 case Command.login:
-                    Validate(message.check,message.Usernumber,message.message);
+                    Validate(message.check, message.Usernumber, message.message);
                     break;
             }
 
         }
-        public void Validate(int check,int Usernumber,string nickname)
+        public void Validate(int check, int Usernumber, string nickname)
         {
             switch (check)
             {
@@ -55,8 +56,11 @@ namespace WpfApp1.ViewModel
                     break;
                 case 2:
                     MessageBox.Show("뚱톡에 오신걸 환영합니다.");
-                    messenger.userdata.number = Usernumber;
-                    messenger.userdata.nickname = nickname;
+                    messenger.userdata.Usernumber = Usernumber;
+                    JsonHelp json = new JsonHelp();
+                    Dictionary<string, string> getnick = json.getnickinfo(nickname);
+                    messenger.userdata.nickname = getnick[Jsonname.Nickname];
+                    messenger.userdata.id = id;
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         MainView mainview = new MainView();
@@ -67,6 +71,9 @@ namespace WpfApp1.ViewModel
                 case 3:
                     MessageBox.Show("ID 그리고 비밀번호가 둘다 틀렸습니다.");
                     break;
+                case 4:
+                    MessageBox.Show("현재 이 계정은 중복 로그인 되었습니다.");
+                    break;
             }
         }
 
@@ -74,9 +81,9 @@ namespace WpfApp1.ViewModel
         {
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-                foreach(Window window in Application.Current.Windows)
+                foreach (Window window in Application.Current.Windows)
                 {
-                    if(window.DataContext == this)
+                    if (window.DataContext == this)
                     {
                         window.Close();
                     }
@@ -91,7 +98,7 @@ namespace WpfApp1.ViewModel
                 return command;
             }
         }
-        
+
         public ICommand JoinUicommand
         {
             get
@@ -102,12 +109,12 @@ namespace WpfApp1.ViewModel
         }
         public void Joinmember()
         {
-            App.Current.Dispatcher.InvokeAsync(() => 
+            App.Current.Dispatcher.InvokeAsync(() =>
             {
-            JoinMember joinMember = new JoinMember();
-            joinMember.ShowDialog();
+                JoinMember joinMember = new JoinMember();
+                joinMember.ShowDialog();
             });
-            
+
         }
         public ICommand FindIdcommand
         {
@@ -119,8 +126,10 @@ namespace WpfApp1.ViewModel
         }
         public void Findid()
         {
-            Findlogininfo findlogininfo = new Findlogininfo();
-            findlogininfo.ShowDialog();
+            App.Current.Dispatcher.InvokeAsync(() => {
+                Findlogininfo findlogininfo = new Findlogininfo();
+                findlogininfo.ShowDialog();
+            });
         }
         public void ExecuteLogin(PasswordBox passwordBox)
         {
@@ -143,6 +152,6 @@ namespace WpfApp1.ViewModel
             }
         }
     }
-    
-    
+
+
 }

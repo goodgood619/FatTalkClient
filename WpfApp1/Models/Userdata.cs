@@ -8,33 +8,29 @@ using GalaSoft.MvvmLight;
 using System.ComponentModel; //이게무엇인가?
 namespace WpfApp1.Models
 {
-    public class Userdata :ViewModelBase
+    public class Userdata : ViewModelBase
     {
-            
-        public int number { get; set; }
+
+        public int Usernumber { get; set; }
         public string id { get; set; }
-        public string password { get; set; }
         public string nickname { get; set; }
         public Userdata()
         {
-            number = 0;
+            Usernumber = 0;
             id = string.Empty;
-            password = string.Empty;
-            nickname = string.Empty;    
+            nickname = string.Empty;
         }
-        public Userdata(string id,string password,string nickname,int number)
+        public Userdata(string id, string nickname, int Usernumber)
         {
             this.id = id;
-            this.password = password;
             this.nickname = nickname;
-            this.number = number;
+            this.Usernumber = Usernumber;
         }
         public void Reset()
         {
             id = string.Empty;
-            password = string.Empty;
             nickname = string.Empty;
-            number = 0;
+            Usernumber = 0;
         }
     }
 }

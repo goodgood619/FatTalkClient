@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using WpfApp1.Models;
 namespace WpfApp1.Modules
 {
-    public class MessengerClient :Tcpclient
+    public class MessengerClient : Tcpclient
     {
         public Action<TCPmessage> domessage { get; set; }
         public Userdata userdata { get; set; }
@@ -15,7 +15,7 @@ namespace WpfApp1.Modules
             domessage = null;
             userdata = new Userdata();
         }
-        public bool requestLogin(string id,string password)
+        public bool requestLogin(string id, string password)
         {
             TCPmessage message = new TCPmessage();
             JsonHelp json = new JsonHelp();
@@ -32,7 +32,7 @@ namespace WpfApp1.Modules
             message.message = json.idcheckinfo(id);
             return Send(message);
         }
-        public bool requestJoin(string id,string password,string nickname,string phone)
+        public bool requestJoin(string id, string password, string nickname, string phone)
         {
             TCPmessage message = new TCPmessage();
             JsonHelp json = new JsonHelp();
@@ -56,19 +56,28 @@ namespace WpfApp1.Modules
             message.message = json.idcheckinfo(id);
             return Send(message);
         }
-        public bool requestLogout()
+        public bool requestLogout(string usernickname)
         {
             TCPmessage message = new TCPmessage();
             JsonHelp json = new JsonHelp();
             message.Command = Command.logout;
+            message.message = json.nicknamecheckinfo(usernickname);
             return Send(message);
         }
-        public bool requestPlusfriend(string plusfriendid)
+        public bool requestPlusfriend(string plusfriendid, string userid)
         {
             TCPmessage message = new TCPmessage();
             JsonHelp json = new JsonHelp();
             message.Command = Command.Plusfriend;
-            message.message = json.idcheckinfo(plusfriendid);
+            message.message = json.plusidcheckinfo(plusfriendid, userid);
+            return Send(message);
+        }
+        public bool requestFreshcommand(string usernickname)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Refresh;
+            message.message = json.nicknamecheckinfo(usernickname);
             return Send(message);
         }
         public override void ResponseMessage(TCPmessage message)

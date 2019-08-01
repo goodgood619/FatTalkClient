@@ -18,24 +18,34 @@ using WpfApp1.Service;
 
 namespace WpfApp1.ViewModel
 {
-    
+
     public class MainViewModel : ViewModelBase
     {
-        public MessengerClient messengerClient { get; set; }
-        public ObservableCollection<Frienddata> Friendlist { get; set; } 
+        public MessengerClient messenger { get; set; }
         public ObservableCollection<Finddata> Findinfo { get; set; }
+        public ObservableCollection<Frienddata> Friendlist { get; set; }
+        public ObservableCollection<string> Showfriend { get; set; }
         private int fcnt = 0;
+        public string usernickname = string.Empty;
         public MainViewModel(Imessanger imessanger)
         {
-            messengerClient = imessanger.GetMessenger(ResponseMessage);
-            Friendlist = new ObservableCollection<Frienddata>();
-           // Findinfo = new ObservableCollection<Finddata>();
+            messenger = imessanger.GetMessenger(ResponseMessage);
+            usernickname = messenger.userdata.nickname;
+            Friendlist = imessanger.frienddatas();
+            Showfriend = new ObservableCollection<string>();
+            fcnt = 0;
+            // Findinfo = new ObservableCollection<Finddata>();
         }
 
+        public string NICKNAME
+        {
+            get { return usernickname; }
+            set { usernickname = messenger.userdata.nickname; RaisePropertyChanged("NICKNAME"); }
+        }
         public int Fcnt
         {
             get { return fcnt; }
-            set { value = fcnt;RaisePropertyChanged("Fcnt"); }
+            set { fcnt = value; RaisePropertyChanged("Fcnt"); }
         }
         public void closeWindow()
         {
@@ -52,9 +62,17 @@ namespace WpfApp1.ViewModel
         }
         public void ResponseMessage(TCPmessage tcpmessage)
         {
-            switch (tcpmessage.Command) {
+            switch (tcpmessage.Command)
+            {
                 case Command.logout:
                     Validlogout(tcpmessage.check);
+                    break;
+                case Command.Removefriend:
+                    break;
+                case Command.Refresh:
+                    ValidFresh(tcpmessage.Friendcount);
+                    break;
+                case Command.Makechat:
                     break;
             }
 
@@ -62,6 +80,7 @@ namespace WpfApp1.ViewModel
 
         public void Validlogout(int check)
         {
+            messenger.userdata.Reset();
             App.Current.Dispatcher.InvokeAsync(() =>
             {
                 MainWindow login = new MainWindow();
@@ -69,7 +88,15 @@ namespace WpfApp1.ViewModel
             });
             closeWindow();
         }
-
+        public void ValidFresh(int friendcnt)
+        {
+            Fcnt = friendcnt;
+            App.Current.Dispatcher.InvokeAsync(() =>
+            {
+                Friendlist.Clear();
+                //여기서 각자 데이터를 받아만 올수 있다면, 그냥 add해주면 됨
+            });
+        }
         public ICommand Freshcommand
         {
             get
@@ -80,7 +107,10 @@ namespace WpfApp1.ViewModel
         }
         public void Executefresh()
         {
-
+            if (!messenger.requestFreshcommand(usernickname))
+            {
+                MessageBox.Show("서버와 연결이 끊겼습니다.");
+            }
         }
         public ICommand Logoutcommand
         {
@@ -92,7 +122,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executelogout()
         {
-            if (messengerClient.requestLogout())
+            if (messenger.requestLogout(usernickname))
             {
                 MessageBox.Show("로그아웃되었습니다.");
             }
@@ -110,7 +140,7 @@ namespace WpfApp1.ViewModel
             App.Current.Dispatcher.InvokeAsync(() =>
             {
                 PlusfriendView plusfriendView = new PlusfriendView();
-                plusfriendView.Show();
+                plusfriendView.ShowDialog();
             });
 
         }
@@ -124,7 +154,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executedeletefriend()
         {
-            
+
         }
         public ICommand Chatfriendcommand
         {

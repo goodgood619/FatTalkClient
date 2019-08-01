@@ -8,34 +8,27 @@ using System.ComponentModel;
 using GalaSoft.MvvmLight;
 namespace WpfApp1.Models
 {
-    public class Frienddata :ViewModelBase
+    public class Frienddata : ViewModelBase
     {
-        public string Id { get; set; }
-        public string nickname { get; set; }
-        public List<Friendlist> friendlists { get; set; }
-        public Frienddata() : this(string.Empty, string.Empty, new List<Friendlist>())
+        public string Fnickname { get; set; }
+        public Frienddata() : this(string.Empty)
         {
 
         }
-        public Frienddata(string Id,string nickname,List<Friendlist> friendlists)
+
+
+        public Frienddata(string Fnickname)
         {
-            this.Id = Id;
-            this.nickname = nickname;
-            this.friendlists = friendlists;
+            this.Fnickname = Fnickname;
+            //this.friendlists = friendlists;
+
         }
 
         public void Reset()
         {
-            Id = string.Empty;
-            nickname = string.Empty;
-            friendlists.RemoveRange(0, friendlists.Count);
+            Fnickname = string.Empty;
+            //friendlists.RemoveRange(0, friendlists.Count);
         }
     }
-    public class Friendlist
-    {
-        public string FId { get; set; }
-        public string Fnickname { get; set; }
-        public int Connectin { get; set; }
 
-    }
 }

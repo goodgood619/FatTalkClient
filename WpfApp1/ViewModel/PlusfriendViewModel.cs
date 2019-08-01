@@ -26,30 +26,47 @@ namespace WpfApp1.ViewModel
         public PlusfriendViewModel(Imessanger imessanger)
         {
             messanger = imessanger.GetMessenger(ResponseMessage);
+            Friendlist = imessanger.frienddatas();
         }
         public void ResponseMessage(TCPmessage tcpmessage)
         {
             switch (tcpmessage.Command)
             {
                 case Command.Plusfriend:
-                    Validplusfriend(tcpmessage.check,tcpmessage.Usernumber);
+                    Validplusfriend(tcpmessage.check, tcpmessage.Usernumber, tcpmessage.message);
                     break;
             }
         }
-        public void Validplusfriend(int check,int usernumber)
+        public void Validplusfriend(int check, int usernumber, string message)
         {
             switch (check)
             {
                 case 0:
-                    MessageBox.Show("존재하지 않는 아이디이거나, 이미 친구추가를 한 아이디 입니다.");
+                    MessageBox.Show("존재하지 않는 아이디입니다. 다시 입력해주세요");
+                    Plusid = string.Empty;
                     break;
                 case 1:
                     MessageBox.Show("친구 추가가 완료되었습니다. ");
-                    
+                    JsonHelp json = new JsonHelp();
+                    Dictionary<string, string> nickinfo = json.getnickinfo(message);
+                    string plusnickname = nickinfo[Jsonname.Nickname];
+
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        //Friendlist.Add(new Frienddata())
+
+
+                        Friendlist.Add(new Frienddata(messanger.userdata.nickname, plusnickname));
+
                     });
+                    Plusid = string.Empty;
+                    break;
+                case 2:
+                    MessageBox.Show("추가하려는 친구의 아이디와 유저의 아이디와 일치합니다. 다시 입력해주세요");
+                    Plusid = string.Empty;
+                    break;
+                case 3:
+                    MessageBox.Show("이미 친구로 추가된 아이디입니다. 다시 입력해주세요");
+                    Plusid = string.Empty;
                     break;
             }
         }
@@ -59,7 +76,7 @@ namespace WpfApp1.ViewModel
             {
                 return plusid;
             }
-            set {plusid=value; RaisePropertyChanged("Plusid");}
+            set { plusid = value; RaisePropertyChanged("Plusid"); }
         }
 
         public ICommand Plusfriendcommand
@@ -78,7 +95,7 @@ namespace WpfApp1.ViewModel
             }
             else
             {
-                if (!messanger.requestPlusfriend(plusid))
+                if (!messanger.requestPlusfriend(plusid, messanger.userdata.id))
                 {
                     MessageBox.Show("서버와 연결이 끊겼습니다.");
                 }
