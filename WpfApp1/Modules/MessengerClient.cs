@@ -20,6 +20,11 @@ namespace WpfApp1.Modules
             TCPmessage message = new TCPmessage();
             JsonHelp json = new JsonHelp();
             message.Command = Command.login;
+            //string test = json.idcheckinfo(id);
+           // test+= json.passwordcheckinfo(password);
+           // message.message = test;
+
+
             message.message = json.logininfo(id, password);
             return Send(message);
         }
