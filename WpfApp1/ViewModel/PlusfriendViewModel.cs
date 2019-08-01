@@ -55,7 +55,7 @@ namespace WpfApp1.ViewModel
                     {
 
 
-                        Friendlist.Add(new Frienddata(messanger.userdata.nickname, plusnickname));
+                        Friendlist.Add(new Frienddata(plusnickname));
 
                     });
                     Plusid = string.Empty;

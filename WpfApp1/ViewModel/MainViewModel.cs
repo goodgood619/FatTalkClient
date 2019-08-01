@@ -93,7 +93,7 @@ namespace WpfApp1.ViewModel
             Fcnt = friendcnt;
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-                Friendlist.Clear();
+                //Friendlist.Clear();
                 //여기서 각자 데이터를 받아만 올수 있다면, 그냥 add해주면 됨
             });
         }

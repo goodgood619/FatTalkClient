@@ -38,7 +38,7 @@
                 </Grid>
                 <Grid Grid.Row="1">
                     <Label Content="친구 목록" FontSize="25" HorizontalContentAlignment="Center">
-                        
+
                     </Label>
                 </Grid>
                 <Grid Grid.Row="2">
@@ -61,7 +61,7 @@
                             <ColumnDefinition Width="70*"/>
                         </Grid.ColumnDefinitions>
                         <Label Content="닉네임: " Grid.Row="1" Grid.Column="0"></Label>
-                        <Label Grid.Row="1" Grid.Column="1" ></Label>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=NICKNAME, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <Grid Grid.Row="2">
                         <ListBox ItemsSource="{Binding Path=Friendlist}">
@@ -85,7 +85,7 @@
                     <Button Content="채팅하기" Command="{Binding Path=Chatfriendcommand}"/>
                 </Grid>
             </Grid>
-            
+
 
         </Grid>
     </Grid>
