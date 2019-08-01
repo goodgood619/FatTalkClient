@@ -26,7 +26,7 @@ namespace WpfApp1.ViewModel
         public ObservableCollection<Frienddata> Friendlist { get; set; }
         public ObservableCollection<string> Showfriend { get; set; }
         private int fcnt = 0;
-        public string usernickname = string.Empty;
+        private string usernickname = string.Empty;
         public MainViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
@@ -39,7 +39,7 @@ namespace WpfApp1.ViewModel
 
         public string NICKNAME
         {
-            get { return usernickname; }
+            get { return messenger.userdata.nickname; }
             set { usernickname = messenger.userdata.nickname; RaisePropertyChanged("NICKNAME"); }
         }
         public int Fcnt
@@ -83,6 +83,9 @@ namespace WpfApp1.ViewModel
             messenger.userdata.Reset();
             App.Current.Dispatcher.InvokeAsync(() =>
             {
+                Fcnt = 0;
+                Friendlist.Clear();
+                NICKNAME = string.Empty;
                 MainWindow login = new MainWindow();
                 login.Show();
             });
@@ -90,9 +93,9 @@ namespace WpfApp1.ViewModel
         }
         public void ValidFresh(int friendcnt)
         {
-            Fcnt = friendcnt;
             App.Current.Dispatcher.InvokeAsync(() =>
             {
+                Fcnt = friendcnt;
                 //Friendlist.Clear();
                 //여기서 각자 데이터를 받아만 올수 있다면, 그냥 add해주면 됨
             });
@@ -107,7 +110,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executefresh()
         {
-            if (!messenger.requestFreshcommand(usernickname))
+            if (!messenger.requestFreshcommand(messenger.userdata.nickname))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }
@@ -122,7 +125,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executelogout()
         {
-            if (messenger.requestLogout(usernickname))
+            if (messenger.requestLogout(messenger.userdata.nickname))
             {
                 MessageBox.Show("로그아웃되었습니다.");
             }
