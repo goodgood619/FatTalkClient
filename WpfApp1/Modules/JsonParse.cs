@@ -40,6 +40,7 @@ namespace WpfApp1.Modules
             {
                 JsonArrayCollection jsonArrayCollection = (JsonArrayCollection)objcollection[name];
                 int count = jsonArrayCollection.Count;
+                array = new string[count];
                 for(int i = 0; i < count; i++)
                 {
                     array[i] = ((JsonStringValue)jsonArrayCollection[i]).Value;

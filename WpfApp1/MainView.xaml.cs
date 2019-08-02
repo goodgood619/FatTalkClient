@@ -23,5 +23,10 @@ namespace WpfApp1
         {
             InitializeComponent();
         }
+
+        private void ListBoxitem_remove(object sender,MouseButtonEventArgs e)
+        {
+            (sender as ListBoxItem).IsSelected = !(sender as ListBoxItem).IsSelected;
+        }
     }
 }

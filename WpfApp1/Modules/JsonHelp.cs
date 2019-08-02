@@ -22,7 +22,11 @@ namespace WpfApp1.Modules
             ret.Add(new JsonStringValue(Jsonname.Password, password));
             return ret.ToString();
         }
-
+        public string passwordcheckinfo(string password){
+           JsonObjectCollection ret = new JsonObjectCollection();
+           ret.Add(new JsonStringValue(Jsonname.Password,password));
+           return ret.ToString();
+        }
         public string idcheckinfo(string id)
         {
             JsonObjectCollection ret = new JsonObjectCollection();
@@ -72,6 +76,11 @@ namespace WpfApp1.Modules
             JsonParse jsonParse = new JsonParse(data);
             ret.Add(Jsonname.Nickname, jsonParse.GetstringValue(Jsonname.Nickname));
             return ret;
+        }
+        public string[] getRefreshnickarray(string data){
+            JsonParse jsonParse = new JsonParse(data);
+            string[] s=jsonParse.GetstringArrayValue("refreshnickarray");
+            return s;
         }
     }
     public class Jsonname

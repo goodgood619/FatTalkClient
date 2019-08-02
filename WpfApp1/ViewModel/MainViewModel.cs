@@ -22,21 +22,75 @@ namespace WpfApp1.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public MessengerClient messenger { get; set; }
-        public ObservableCollection<Finddata> Findinfo { get; set; }
-        public ObservableCollection<Frienddata> Friendlist { get; set; }
-        public ObservableCollection<string> Showfriend { get; set; }
+        //public ObservableCollection<Finddata> Findinfo { get; set; }
+        //public ObservableCollection<Frienddata> Friendlist { get; set; }
         private int fcnt = 0;
         private string usernickname = string.Empty;
+        private ObservableCollection<Frienddata> _Friendlist;
+        private ObservableCollection<string> _Removelist;
         public MainViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             usernickname = messenger.userdata.nickname;
             Friendlist = imessanger.frienddatas();
-            Showfriend = new ObservableCollection<string>();
+            _Removelist = new ObservableCollection<string>();
             fcnt = 0;
             // Findinfo = new ObservableCollection<Finddata>();
         }
-
+        public ObservableCollection<string> Removelist
+        {
+            get
+            {
+                return this._Removelist;
+            }
+            set
+            {
+                if (this._Removelist != value)
+                {
+                    this._Removelist = value;
+                    this.RaisePropertyChanged(() => this._Removelist);
+                }
+            }
+        }
+        public ObservableCollection<Frienddata> Friendlist
+        {
+            get
+            {
+                return _Friendlist;
+            }
+            set
+            {
+                _Friendlist = value;
+                RaisePropertyChanged("Friendlist");
+            }
+        }
+        public System.Collections.IList SelectRemoveFriend
+        {
+            get
+            {
+                return Removelist;
+            }
+            set
+            {
+                Removelist.Clear();
+                foreach(string s in value){
+                    Removelist.Add(s);
+                }
+            }
+        }
+        private Frienddata frienddata;
+        public Frienddata deletecount
+        {
+            get
+            {
+                return frienddata;
+            }
+            set
+            {
+                var selectedItems = Friendlist.Where(x => x.IsSelected).Count();
+                this.RaisePropertyChanged("deletecount");
+            }
+        }
         public string NICKNAME
         {
             get { return messenger.userdata.nickname; }
@@ -70,7 +124,7 @@ namespace WpfApp1.ViewModel
                 case Command.Removefriend:
                     break;
                 case Command.Refresh:
-                    ValidFresh(tcpmessage.Friendcount);
+                    ValidFresh(tcpmessage.Friendcount,tcpmessage.message);
                     break;
                 case Command.Makechat:
                     break;
@@ -91,13 +145,18 @@ namespace WpfApp1.ViewModel
             });
             closeWindow();
         }
-        public void ValidFresh(int friendcnt)
+        public void ValidFresh(int friendcnt,string message)
         {
+            JsonHelp jsonHelp = new JsonHelp();
+            string[] refresharray = jsonHelp.getRefreshnickarray(message);
             App.Current.Dispatcher.InvokeAsync(() =>
             {
                 Fcnt = friendcnt;
-                //Friendlist.Clear();
+                Friendlist.Clear();
                 //여기서 각자 데이터를 받아만 올수 있다면, 그냥 add해주면 됨
+                for(int i=0;i<refresharray.Length;i++){
+                    Friendlist.Add(new Frienddata(refresharray[i]));
+                }
             });
         }
         public ICommand Freshcommand
@@ -157,7 +216,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executedeletefriend()
         {
-
+            //listBox.
         }
         public ICommand Chatfriendcommand
         {

@@ -3,6 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800">
@@ -24,8 +26,6 @@
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="50*"/>
                     <RowDefinition Height="200*"/>
-                    <RowDefinition Height="50*"/>
-                    <RowDefinition Height="50*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
@@ -46,6 +46,8 @@
                         <RowDefinition Height="20*"/>
                         <RowDefinition Height="20*"/>
                         <RowDefinition Height="80*"/>
+                        <RowDefinition Height="20*"/>
+                        <RowDefinition Height="20*"/>
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0">
                         <Grid.ColumnDefinitions>
@@ -64,29 +66,33 @@
                         <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=NICKNAME, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <Grid Grid.Row="2">
-                        <ListBox ItemsSource="{Binding Path=Friendlist}">
+                        <ListBox x:Name="Myfriend" ItemsSource="{Binding Friendlist,NotifyOnSourceUpdated=True}" SelectionMode="Multiple" SelectedItem="{Binding Path=deletecount,UpdateSourceTrigger=PropertyChanged}"> 
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=Fnickname}"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay,Path=IsSelected}"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
                         </ListBox>
+                        
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="50*"/>
+                            <ColumnDefinition Width="50*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Content="친구추가" Grid.Row="3" Grid.Column="0" Command="{Binding Path=Plusfriendcommand}"/>
+                        <Button Content="친구삭제" Grid.Row="3" Grid.Column="1"  Command="{Binding Path=Deletefriendcommand}"/>
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <Button Content="채팅하기" Command="{Binding Path=Chatfriendcommand}"/>
                     </Grid>
                 </Grid>
-                <Grid Grid.Row="3">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="50*"/>
-                        <ColumnDefinition Width="50*"/>
-                    </Grid.ColumnDefinitions>
-                    <Button Content="친구추가" Grid.Row="3" Grid.Column="0" Command="{Binding Path=Plusfriendcommand}"/>
-                    <Button Content="친구삭제" Grid.Row="3" Grid.Column="1" Command="{Binding Path=Deletefriendcommand}"/>
-                </Grid>
-                <Grid Grid.Row="4">
-                    <Button Content="채팅하기" Command="{Binding Path=Chatfriendcommand}"/>
-                </Grid>
             </Grid>
-
-
         </Grid>
     </Grid>
 </Window>
