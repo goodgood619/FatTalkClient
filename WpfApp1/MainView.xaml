@@ -66,17 +66,17 @@
                         <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=NICKNAME, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <Grid Grid.Row="2">
-                        <ListBox x:Name="Myfriend" ItemsSource="{Binding Friendlist,NotifyOnSourceUpdated=True}" SelectionMode="Multiple" SelectedItem="{Binding Path=deletecount,UpdateSourceTrigger=PropertyChanged}"> 
+                        <ListBox x:Name="Myfriend" ItemsSource="{Binding Path=Friendlist}" SelectionMode="Multiple">
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <TextBlock Text="{Binding Path=Fnickname}"/>
                                 </DataTemplate>
                             </ListBox.ItemTemplate>
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="ListBoxItem">
-                                    <Setter Property="IsSelected" Value="{Binding Mode=TwoWay,Path=IsSelected}"/>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="SelectionChanged">
+                                    <ei:ChangePropertyAction TargetObject="{Binding Mode=OneWay}" PropertyName="SelectFriendlist" Value="{Binding Path=SelectedItems,ElementName=Myfriend}"/>
+                                </i:EventTrigger>
+                              </i:Interaction.Triggers>
                         </ListBox>
                         
                     </Grid>

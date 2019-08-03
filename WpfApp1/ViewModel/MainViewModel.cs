@@ -22,22 +22,19 @@ namespace WpfApp1.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public MessengerClient messenger { get; set; }
-        //public ObservableCollection<Finddata> Findinfo { get; set; }
-        //public ObservableCollection<Frienddata> Friendlist { get; set; }
         private int fcnt = 0;
         private string usernickname = string.Empty;
         private ObservableCollection<Frienddata> _Friendlist;
-        private ObservableCollection<string> _Removelist;
+        private ObservableCollection<Frienddata> _Removelist;
         public MainViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             usernickname = messenger.userdata.nickname;
             Friendlist = imessanger.frienddatas();
-            _Removelist = new ObservableCollection<string>();
+            _Removelist = new ObservableCollection<Frienddata>();
             fcnt = 0;
-            // Findinfo = new ObservableCollection<Finddata>();
         }
-        public ObservableCollection<string> Removelist
+        public ObservableCollection<Frienddata> Removelist
         {
             get
             {
@@ -64,7 +61,7 @@ namespace WpfApp1.ViewModel
                 RaisePropertyChanged("Friendlist");
             }
         }
-        public System.Collections.IList SelectRemoveFriend
+        public System.Collections.IList SelectFriendlist
         {
             get
             {
@@ -73,22 +70,9 @@ namespace WpfApp1.ViewModel
             set
             {
                 Removelist.Clear();
-                foreach(string s in value){
+                foreach(Frienddata s in value){
                     Removelist.Add(s);
                 }
-            }
-        }
-        private Frienddata frienddata;
-        public Frienddata deletecount
-        {
-            get
-            {
-                return frienddata;
-            }
-            set
-            {
-                var selectedItems = Friendlist.Where(x => x.IsSelected).Count();
-                this.RaisePropertyChanged("deletecount");
             }
         }
         public string NICKNAME
@@ -122,6 +106,7 @@ namespace WpfApp1.ViewModel
                     Validlogout(tcpmessage.check);
                     break;
                 case Command.Removefriend:
+                    ValidRemove(tcpmessage.check);
                     break;
                 case Command.Refresh:
                     ValidFresh(tcpmessage.Friendcount,tcpmessage.message);
@@ -131,7 +116,13 @@ namespace WpfApp1.ViewModel
             }
 
         }
-
+        public void ValidRemove(int check)
+        {
+            if (check == 1)
+            {
+                MessageBox.Show("친구 삭제가 완료되었습니다. 새로고침을 눌러주세요");
+            }
+        }
         public void Validlogout(int check)
         {
             messenger.userdata.Reset();
@@ -216,7 +207,16 @@ namespace WpfApp1.ViewModel
         }
         public void Executedeletefriend()
         {
-            //listBox.
+            string[] sendarray = null;
+            sendarray = new string[Removelist.Count];
+            for(int i = 0; i < Removelist.Count; i++)
+            {
+                sendarray[i] = Removelist[i].Fnickname.ToString();
+            }
+            if (!messenger.requestDeletefriendcommand(sendarray,messenger.userdata.nickname))
+            {
+                MessageBox.Show("서버와 연결이 끊겼습니다");
+            }
         }
         public ICommand Chatfriendcommand
         {

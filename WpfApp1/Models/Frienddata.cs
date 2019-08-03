@@ -11,17 +11,7 @@ namespace WpfApp1.Models
     public class Frienddata : ViewModelBase
     {
         public string Fnickname { get; set; }
-        private bool isSelected;
-
-        public bool IsSelected
-        {
-            get { return isSelected; }
-            set
-            {
-                isSelected = value;
-                this.RaisePropertyChanged("IsSelected");
-            }
-        }
+       
         public Frienddata() : this(string.Empty)
         {
 

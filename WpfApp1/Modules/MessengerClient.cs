@@ -80,6 +80,14 @@ namespace WpfApp1.Modules
             message.message = json.nicknamecheckinfo(usernickname);
             return Send(message);
         }
+        public bool requestDeletefriendcommand(string[] removenickarray,string nickname)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Removefriend;
+            message.message = json.deletenickinfo(removenickarray,nickname);  
+            return Send(message);
+        }
         public override void ResponseMessage(TCPmessage message)
         {
             if (domessage != null)

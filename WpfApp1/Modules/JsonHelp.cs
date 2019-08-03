@@ -82,6 +82,18 @@ namespace WpfApp1.Modules
             string[] s=jsonParse.GetstringArrayValue("refreshnickarray");
             return s;
         }
+        public string deletenickinfo(string[] removenickarray,string nickname)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.Nickname, nickname));
+            JsonArrayCollection jsonArray = new JsonArrayCollection("deletenickarray");
+            for(int i = 0; i < removenickarray.Length; i++)
+            {
+                jsonArray.Add(new JsonStringValue(null, removenickarray[i]));   
+            }
+            ret.Add(jsonArray);
+            return ret.ToString();
+        }
     }
     public class Jsonname
     {
