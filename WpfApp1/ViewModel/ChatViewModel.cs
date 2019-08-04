@@ -86,6 +86,11 @@ namespace WpfApp1.ViewModel
         }
         public void Executesendchat()
         {
+            //내가 보낸거
+            App.Current.Dispatcher.InvokeAsync(() =>
+            {
+                Messages.Add(Sendchat);
+            });
             if (!messenger.requestSendchatcommand(messenger.chatnumber, messenger.userdata.nickname, Sendchat))
             {
                 MessageBox.Show("서버와 연결이 끊겼거나, 상대방이 채팅방을 나갔습니다");
