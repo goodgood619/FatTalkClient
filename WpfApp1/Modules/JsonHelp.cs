@@ -94,6 +94,25 @@ namespace WpfApp1.Modules
             ret.Add(jsonArray);
             return ret.ToString();
         }
+        public string makechatnickinfo(string[] makechatarray, string nickname)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.Nickname, nickname));
+            JsonArrayCollection jsonArray = new JsonArrayCollection("makechatarray");
+            for (int i = 0; i < makechatarray.Length; i++)
+            {
+                jsonArray.Add(new JsonStringValue(null, makechatarray[i]));
+            }
+            ret.Add(jsonArray);
+            return ret.ToString();
+        }
+        public string sendchatinfo(string message,string sendnickname)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.Nickname, sendnickname));
+            ret.Add(new JsonStringValue(Jsonname.Message, message));
+            return ret.ToString();
+        }
     }
     public class Jsonname
     {
@@ -103,5 +122,6 @@ namespace WpfApp1.Modules
         public const string Nickname = "Nickname";
         public const string Phone = "Phone";
         public const string Usernumber = "Usernumber";
+        public const string Message = "Message";
     }
 }

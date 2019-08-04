@@ -11,7 +11,6 @@ namespace WpfApp1.Service
     public interface Imessanger
     {
         MessengerClient GetMessenger(Action<TCPmessage> action);
-        ObservableCollection<Frienddata> frienddatas();
 
     }
 }

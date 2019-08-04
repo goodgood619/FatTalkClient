@@ -20,7 +20,6 @@ namespace WpfApp1.ViewModel
     {
         private string id;
         public MessengerClient messenger { get; set; }
-        //public ObservableCollection<Userdata> Userinfo { get; set; }
         public ObservableCollection<Frienddata> Friendlist { get; set; }
         public string ID
         {
@@ -30,8 +29,6 @@ namespace WpfApp1.ViewModel
         public LoginViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
-            //Userinfo = new ObservableCollection<Userdata>();
-            Friendlist = imessanger.frienddatas();
             ID = string.Empty;
         }
         public void ResponseMessage(TCPmessage message)

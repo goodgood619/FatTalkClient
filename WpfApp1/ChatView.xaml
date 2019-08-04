@@ -3,22 +3,89 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="ChatView" Height="450" Width="800">
-    <Grid HorizontalAlignment="Left" Height="100" Margin="0,315,0,0" VerticalAlignment="Top" Width="672" RenderTransformOrigin="0.506,0.495">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="0*"/>
-            <ColumnDefinition Width="333*"/>
-            <ColumnDefinition Width="333*"/>
-        </Grid.ColumnDefinitions>
-        <Grid Grid.Column="2" HorizontalAlignment="Left" Height="100" Margin="346,1,-121,0" VerticalAlignment="Top" Width="111">
-            <Button Content="전송" HorizontalAlignment="Left" Margin="26,38,0,0" VerticalAlignment="Top" Width="70"/>
+    <Window.DataContext>
+        <Binding Path="Chat" Source="{StaticResource ViewModelLocator}"/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50*"/>
+            <RowDefinition Height="400*"/>
+            <RowDefinition Height="50*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500*"/>
+                <ColumnDefinition Width="50*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="인원초대" Grid.Row="0" Grid.Column="1" Command="{Binding Path=Joinchatcommand}"/>
+            <Button Content="방나가기" Grid.Row="0" Grid.Column="2" Command="{Binding Path=Outchatcommand}"/>
         </Grid>
-        <Grid Grid.Column="1" HorizontalAlignment="Left" Height="275
-              " Margin="4,-273,-121,0" VerticalAlignment="Top" Width="789" Grid.ColumnSpan="2"/>
-        <Grid Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="40" Margin="4,-312,-121,0" VerticalAlignment="Top" Width="789">
-            <Button Content="인원초대" HorizontalAlignment="Left" Margin="704,10,0,0" VerticalAlignment="Top" Width="75"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500*"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="30*"/>
+                    <ColumnDefinition Width="300*"/>
+                </Grid.ColumnDefinitions>
+                <ListBox ItemsSource="{Binding Path=ChatMessages}">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Grid.Column="1" Text="{Binding Path=Messages}" TextAlignment="Left"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
+                    <RowDefinition Height="200*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="25*"/>
+                        <ColumnDefinition Width="75"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="닉네임: " Grid.Row="0" Grid.Column="0"></Label>
+                    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=NICKNAME,UpdateSourceTrigger=PropertyChanged}"/>
+                </Grid>
+                <Label Content="유저목록" Grid.Row="1" HorizontalAlignment="Center" FontSize="20"></Label>
+                <Grid Grid.Row="2">
+                <ListBox x:Name="ChatFriendlist" ItemsSource="{Binding Path=Friendlist}" SelectionMode="Multiple">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Path=Fnickname}"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="SelectionChanged">
+                                <ei:ChangePropertyAction TargetObject="{Binding Mode=OneWay}" PropertyName="SelectFriendlist" Value="{Binding Path=SelectedItems,ElementName=ChatFriendlist}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </ListBox>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="500*"/>
+                <ColumnDefinition Width="50*"/>
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Row="2" Grid.Column="0" Text="{Binding Path=Sendchat,UpdateSourceTrigger=PropertyChanged}">
+                <TextBox.InputBindings>
+                    <KeyBinding Key="Enter" Command="{Binding Path=Sendchatcommand}"/>
+                </TextBox.InputBindings>
+            </TextBox>
+            <Button Content="전송" Grid.Row="2" Grid.Column="1" Command="{Binding Path=Sendchatcommand}"/>
         </Grid>
     </Grid>
 </Window>

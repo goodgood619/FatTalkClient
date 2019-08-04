@@ -22,11 +22,23 @@ namespace WpfApp1.ViewModel
     {
         private string plusid;
         public MessengerClient messanger { get; set; }
-        public ObservableCollection<Frienddata> Friendlist { get; set; }
+        private ObservableCollection<Frienddata> _Friendlist;
         public PlusfriendViewModel(Imessanger imessanger)
         {
             messanger = imessanger.GetMessenger(ResponseMessage);
-            Friendlist = imessanger.frienddatas();
+            _Friendlist = new ObservableCollection<Frienddata>();
+        }
+        public ObservableCollection<Frienddata> Friendlist
+        {
+            get
+            {
+                return _Friendlist;
+            }
+            set
+            {
+                _Friendlist = value;
+                RaisePropertyChanged("Friendlist");
+            }
         }
         public void ResponseMessage(TCPmessage tcpmessage)
         {

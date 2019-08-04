@@ -25,27 +25,27 @@ namespace WpfApp1.ViewModel
         private int fcnt = 0;
         private string usernickname = string.Empty;
         private ObservableCollection<Frienddata> _Friendlist;
-        private ObservableCollection<Frienddata> _Removelist;
+        private ObservableCollection<Frienddata> _Selectlist;
         public MainViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             usernickname = messenger.userdata.nickname;
-            Friendlist = imessanger.frienddatas();
-            _Removelist = new ObservableCollection<Frienddata>();
+            _Selectlist = new ObservableCollection<Frienddata>();
+            _Friendlist = new ObservableCollection<Frienddata>();
             fcnt = 0;
         }
-        public ObservableCollection<Frienddata> Removelist
+        public ObservableCollection<Frienddata> Selectlist
         {
             get
             {
-                return this._Removelist;
+                return this._Selectlist;
             }
             set
             {
-                if (this._Removelist != value)
+                if (this._Selectlist != value)
                 {
-                    this._Removelist = value;
-                    this.RaisePropertyChanged(() => this._Removelist);
+                    this._Selectlist = value;
+                    this.RaisePropertyChanged(() => this._Selectlist);
                 }
             }
         }
@@ -65,13 +65,13 @@ namespace WpfApp1.ViewModel
         {
             get
             {
-                return Removelist;
+                return Selectlist;
             }
             set
             {
-                Removelist.Clear();
+                Selectlist.Clear();
                 foreach(Frienddata s in value){
-                    Removelist.Add(s);
+                    Selectlist.Add(s);
                 }
             }
         }
@@ -112,9 +112,39 @@ namespace WpfApp1.ViewModel
                     ValidFresh(tcpmessage.Friendcount,tcpmessage.message);
                     break;
                 case Command.Makechat:
+                    ValidMakechat(tcpmessage.message, tcpmessage.check,tcpmessage.Chatnumber);
                     break;
             }
 
+        }
+        public void ValidMakechat(string message,int check,int chatnumber)
+        {
+            switch (check)
+            {
+                case 0:
+                    MessageBox.Show("현재 친구로 등록된 친구가 아닙니다. 다시 선택해주세요");
+                    Selectlist.Clear();
+                    break;
+                case 1:
+                    MessageBox.Show("초대한 친구가 차단했거나, 로그아웃된 닉네임이 있습니다. 다시 선택해주세요");
+                    Selectlist.Clear();
+                    break;
+                case 2:
+                    MessageBox.Show("이미 같은 멤버로 구성된 방이 있습니다. 다시 선택해주세요");
+                    Selectlist.Clear();
+                    break;
+                case 3:
+                    MessageBox.Show("채팅방이 개설되었습니다.");
+                    Selectlist.Clear();
+                    messenger.chatnumber = chatnumber; 
+                    App.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        ChatView chatView = new ChatView();
+                        chatView.Show();
+                    });
+                    break;
+
+            }
         }
         public void ValidRemove(int check)
         {
@@ -208,14 +238,14 @@ namespace WpfApp1.ViewModel
         public void Executedeletefriend()
         {
             string[] sendarray = null;
-            sendarray = new string[Removelist.Count];
-            for(int i = 0; i < Removelist.Count; i++)
+            sendarray = new string[Selectlist.Count];
+            for(int i = 0; i < Selectlist.Count; i++)
             {
-                sendarray[i] = Removelist[i].Fnickname.ToString();
+                sendarray[i] = Selectlist[i].Fnickname.ToString();
             }
             if (!messenger.requestDeletefriendcommand(sendarray,messenger.userdata.nickname))
             {
-                MessageBox.Show("서버와 연결이 끊겼습니다");
+                MessageBox.Show("서버와 연결이 끊겼습니다.");
             }
         }
         public ICommand Chatfriendcommand
@@ -228,7 +258,16 @@ namespace WpfApp1.ViewModel
         }
         public void ExecuteChat()
         {
-
+            string[] sendarray2 = null;
+            sendarray2 = new string[Selectlist.Count];
+            for (int i = 0; i < Selectlist.Count; i++)
+            {
+                sendarray2[i] = Selectlist[i].Fnickname.ToString();
+            }
+            if (!messenger.requestMakechatcommand(sendarray2,messenger.userdata.nickname))
+            {
+                MessageBox.Show("서버와 연결이 끊겼습니다.");
+            }
         }
     }
 }

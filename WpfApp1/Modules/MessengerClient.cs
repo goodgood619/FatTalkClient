@@ -10,10 +10,12 @@ namespace WpfApp1.Modules
     {
         public Action<TCPmessage> domessage { get; set; }
         public Userdata userdata { get; set; }
+        public int chatnumber { get; set; }
         public MessengerClient()
         {
             domessage = null;
             userdata = new Userdata();
+            chatnumber = 0;
         }
         public bool requestLogin(string id, string password)
         {
@@ -86,6 +88,23 @@ namespace WpfApp1.Modules
             JsonHelp json = new JsonHelp();
             message.Command = Command.Removefriend;
             message.message = json.deletenickinfo(removenickarray,nickname);  
+            return Send(message);
+        }
+        public bool requestMakechatcommand(string[] chatnickarray,string nickname)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Makechat;
+            message.message = json.makechatnickinfo(chatnickarray, nickname);
+            return Send(message);
+        }
+        public bool requestSendchatcommand(int chatnumber,string sendusernickname,string Message)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Sendchat;
+            message.Chatnumber = chatnumber;
+            message.message = json.sendchatinfo(Message, sendusernickname);
             return Send(message);
         }
         public override void ResponseMessage(TCPmessage message)
