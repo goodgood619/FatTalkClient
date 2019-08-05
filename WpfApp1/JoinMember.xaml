@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="150*"/>
                 <ColumnDefinition Width="100*"/>
             </Grid.ColumnDefinitions>
-            <Label Content="회원 가입" Grid.Row="0" Grid.Column="1" FontSize="24" VerticalAlignment="Top" VerticalContentAlignment="Center">
+            <Label Content="회원 가입" Grid.Row="0" Grid.Column="1" FontSize="24" VerticalAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center">
                 
             </Label>
         </Grid>

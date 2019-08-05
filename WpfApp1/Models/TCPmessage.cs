@@ -67,6 +67,7 @@ namespace WpfApp1.Models
         Plusfriend,
         Removefriend,
         Sendchat,
-        Nicknamecheck
+        Nicknamecheck,
+        ReceiveJoinchat
     }
 }

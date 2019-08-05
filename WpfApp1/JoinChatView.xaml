@@ -1,0 +1,45 @@
+﻿<Window x:Class="WpfApp1.JoinChatView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="JoinChatView" Height="200" Width="200">
+    <Window.DataContext>
+        <Binding Path="joinchat" Source="{StaticResource ViewModelLocator}"/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="30*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label Content="초대할 ID를 입력해주세요" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12"></Label>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Label Content="ID" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+             </Grid>
+            <Grid Grid.Column="1">
+                <TextBox Text="{Binding Path=JoinchatId,UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding Path=Joinchatcommand}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Button Content="초대" Command="{Binding Path=Joinchatcommand}"></Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

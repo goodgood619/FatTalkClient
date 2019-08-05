@@ -50,12 +50,12 @@ namespace WpfApp1.Modules
             message.message = json.nicknamecheckinfo(nickname);
             return Send(message);
         }
-        public bool requestFindid(string id)
+        public bool requestFindid(string id,string phone)
         {
             TCPmessage message = new TCPmessage();
             JsonHelp json = new JsonHelp();
             message.Command = Command.Findid;
-            message.message = json.idcheckinfo(id);
+            message.message = json.Findidphoneinfo(id,phone);
             return Send(message);
         }
         public bool requestLogout(string usernickname)
@@ -105,6 +105,24 @@ namespace WpfApp1.Modules
             message.Command = Command.Sendchat;
             message.Chatnumber = chatnumber;
             message.message = json.sendchatinfo(Message, sendusernickname);
+            return Send(message);
+        }
+        public bool requestOutchatcommand(int chatnumber,string sendusernickname)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Outchat;
+            message.Chatnumber = chatnumber;
+            message.message = json.nicknamecheckinfo(sendusernickname);
+            return Send(message);
+        }
+        public bool requestJoinchatcommand(string joinchatid,int chatnumber,string usernickname)
+        {
+            TCPmessage message = new TCPmessage();
+            JsonHelp json = new JsonHelp();
+            message.Command = Command.Joinchat;
+            message.Chatnumber = chatnumber;
+            message.message = json.sendjoinchatinfo(joinchatid,usernickname);
             return Send(message);
         }
         public override void ResponseMessage(TCPmessage message)

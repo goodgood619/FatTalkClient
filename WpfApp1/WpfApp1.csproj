@@ -100,6 +100,9 @@
     <Compile Include="Findlogininfo.xaml.cs">
       <DependentUpon>Findlogininfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="JoinChatView.xaml.cs">
+      <DependentUpon>JoinChatView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="JoinMember.xaml.cs">
       <DependentUpon>JoinMember.xaml</DependentUpon>
     </Compile>
@@ -123,6 +126,7 @@
     <Compile Include="Service\MessangerService.cs" />
     <Compile Include="ViewModel\ChatViewModel.cs" />
     <Compile Include="ViewModel\FindlogininfoViewModel.cs" />
+    <Compile Include="ViewModel\JoinChatViewModel.cs" />
     <Compile Include="ViewModel\JoinViewModel.cs" />
     <Compile Include="ViewModel\LoginViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
@@ -133,6 +137,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Findlogininfo.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="JoinChatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

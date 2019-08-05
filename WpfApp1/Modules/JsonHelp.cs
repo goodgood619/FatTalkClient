@@ -55,6 +55,13 @@ namespace WpfApp1.Modules
             ret.Add(new JsonStringValue(Jsonname.Nickname, nickname));
             return ret.ToString();
         }
+        public string Findidphoneinfo(string id,string phone)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.ID, id));
+            ret.Add(new JsonStringValue(Jsonname.Phone, phone));
+            return ret.ToString();
+        }
         public Dictionary<string, string> getlogininfo(string data)
         {
             Dictionary<string, string> ret = new Dictionary<string, string>();
@@ -75,6 +82,13 @@ namespace WpfApp1.Modules
             Dictionary<string, string> ret = new Dictionary<string, string>();
             JsonParse jsonParse = new JsonParse(data);
             ret.Add(Jsonname.Nickname, jsonParse.GetstringValue(Jsonname.Nickname));
+            return ret;
+        }
+        public Dictionary<string,string> getmessageinfo(string data)
+        {
+            Dictionary<string, string> ret = new Dictionary<string, string>();
+            JsonParse jsonParse = new JsonParse(data);
+            ret.Add(Jsonname.Message, jsonParse.GetstringValue(Jsonname.Message));
             return ret;
         }
         public string[] getRefreshnickarray(string data){
@@ -111,6 +125,13 @@ namespace WpfApp1.Modules
             JsonObjectCollection ret = new JsonObjectCollection();
             ret.Add(new JsonStringValue(Jsonname.Nickname, sendnickname));
             ret.Add(new JsonStringValue(Jsonname.Message, message));
+            return ret.ToString();
+        }
+        public string sendjoinchatinfo(string id,string nickname)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.ID, id));
+            ret.Add(new JsonStringValue(Jsonname.Nickname, nickname));
             return ret.ToString();
         }
     }

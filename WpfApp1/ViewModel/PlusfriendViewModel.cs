@@ -47,6 +47,8 @@ namespace WpfApp1.ViewModel
                 case Command.Plusfriend:
                     Validplusfriend(tcpmessage.check, tcpmessage.Usernumber, tcpmessage.message);
                     break;
+                case Command.ReceiveJoinchat:
+                    break;
             }
         }
         public void Validplusfriend(int check, int usernumber, string message)

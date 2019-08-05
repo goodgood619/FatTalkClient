@@ -10,30 +10,31 @@ namespace WpfApp1.Models
 {
     public class Chatdata : ViewModelBase
     {
-        public string id { get; set; }
-        public string nickname { get; set; }
-        public string chatmessage { get; set; }
+        public string Chatmessage { get; set; }
+        public string Sendnickname { get; set; }
         public int Chatnumber { get; set; }
+        public List<string> Userlist { get; set; }
         public Chatdata()
         {
-            id = string.Empty;
-            nickname = string.Empty;
-            chatmessage = string.Empty;
+            
+            Chatmessage = string.Empty;
+            Sendnickname = string.Empty;
             Chatnumber = 0;
+            Userlist = new List<string>();
         }
-        public Chatdata(string id,string nickname,string chatmessage,int Chatnumber)
+        public Chatdata(string Chatmessage,string Sendnickname,int Chatnumber,List<string> Userlist)
         {
-            this.id = id;
-            this.nickname = nickname;
-            this.chatmessage = chatmessage;
+            this.Chatmessage = Chatmessage;
+            this.Sendnickname = Sendnickname;
             this.Chatnumber = Chatnumber;
+            this.Userlist = Userlist;
         }
         public void reset()
         {
-            id = string.Empty;
-            nickname = string.Empty;
-            chatmessage = string.Empty;
+            Chatmessage = string.Empty;
+            Sendnickname = string.Empty;
             Chatnumber = 0;
+            Userlist.RemoveRange(0, Userlist.Count);
         }
     }
 }

@@ -19,7 +19,7 @@
             <RowDefinition Height="100*"/>
         </Grid.RowDefinitions>
         <Grid Grid.Row ="0">
-            <Label Content="뚱톡" FontSize="30" HorizontalContentAlignment="Center" >
+            <Label Content="뚱톡" FontSize="30" HorizontalContentAlignment="Center" VerticalAlignment="Center" >
             </Label>
         </Grid>
         <Grid Grid.Row="2">

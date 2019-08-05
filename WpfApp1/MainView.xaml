@@ -37,7 +37,7 @@
                     <Button Content="로그아웃" Grid.Row="0" Grid.Column="1" Command="{Binding Path=Logoutcommand}"/>
                 </Grid>
                 <Grid Grid.Row="1">
-                    <Label Content="친구 목록" FontSize="25" HorizontalContentAlignment="Center">
+                    <Label Content="친구 목록" FontSize="25" HorizontalContentAlignment="Center" VerticalAlignment="Center">
 
                     </Label>
                 </Grid>
@@ -54,7 +54,7 @@
                             <ColumnDefinition Width="30*"/>
                             <ColumnDefinition Width="70*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="친구들: " Grid.Row="0" Grid.Column="0"></Label>
+                        <Label Content="친구들: " Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"></Label>
                         <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=Fcnt, UpdateSourceTrigger=PropertyChanged}"/>
                     </Grid>
                     <Grid Grid.Row="1">
@@ -62,8 +62,8 @@
                             <ColumnDefinition Width="30*"/>
                             <ColumnDefinition Width="70*"/>
                         </Grid.ColumnDefinitions>
-                        <Label Content="닉네임: " Grid.Row="1" Grid.Column="0"></Label>
-                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=NICKNAME, UpdateSourceTrigger=PropertyChanged}"/>
+                        <Label Content="닉네임: " Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"></Label>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=NICKNAME, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                     </Grid>
                     <Grid Grid.Row="2">
                         <ListBox x:Name="Myfriend" ItemsSource="{Binding Path=Friendlist}" SelectionMode="Multiple">

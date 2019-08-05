@@ -114,6 +114,9 @@ namespace WpfApp1.ViewModel
                 case Command.Makechat:
                     ValidMakechat(tcpmessage.message, tcpmessage.check,tcpmessage.Chatnumber);
                     break;
+                case Command.ReceiveJoinchat:
+
+                    break;
             }
 
         }

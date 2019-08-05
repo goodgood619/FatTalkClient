@@ -17,9 +17,10 @@
         </Grid.ColumnDefinitions>
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="75*"/>
-                <RowDefinition Height="50*"/>
-                <RowDefinition Height="200*"/>
+                <RowDefinition Height="45*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="40*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Label Content="ID,비밀번호 찾기" Grid.Column="1" Grid.Row="0" FontSize="25" HorizontalContentAlignment="Center"/>
@@ -30,7 +31,7 @@
                     <ColumnDefinition Width="100*"/>
                     <ColumnDefinition Width="50*"/>
                 </Grid.ColumnDefinitions>
-                <Label Content="ID" Grid.Row="1" Grid.Column="0" FontSize="15" HorizontalContentAlignment="Right"/>
+                <Label Content="Id" Grid.Row="1" Grid.Column="0" FontSize="15" HorizontalContentAlignment="Right"/>
                 <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=ID,UpdateSourceTrigger=PropertyChanged}">
                     <TextBox.InputBindings>
                         <KeyBinding Key="Enter" Command="{Binding Path=Findidinfocommand}"/>
@@ -39,6 +40,19 @@
                 <Button Content="찾기" Grid.Row="1" Grid.Column="2" Command="{Binding Path=Findidinfocommand}"/>
             </Grid>
             <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80*"/>
+                    <ColumnDefinition Width="158"/>
+                    <ColumnDefinition Width="79*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="Phone" Grid.Row="2" Grid.Column="0" FontSize="15" HorizontalContentAlignment="Right"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=PHONE,UpdateSourceTrigger=PropertyChanged}">
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding Path=Findidinfocommand}"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Row="3">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="100*"/>
                     <RowDefinition Height="100*"/>
