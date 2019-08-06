@@ -139,7 +139,7 @@ namespace WpfApp1.ViewModel
                 case 3:
                     MessageBox.Show("채팅방이 개설되었습니다.");
                     Selectlist.Clear();
-                    messenger.chatnumber = chatnumber; 
+                    messenger.Chatnumber = chatnumber;
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         ChatView chatView = new ChatView();

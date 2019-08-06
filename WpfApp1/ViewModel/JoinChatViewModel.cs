@@ -66,7 +66,7 @@ namespace WpfApp1.ViewModel
         }
         public void ExecuteJoinchat()
         {
-            if (!messenger.requestJoinchatcommand(joinchatid,messenger.chatnumber,messenger.userdata.nickname))
+            if (!messenger.requestJoinchatcommand(joinchatid,messenger.Chatnumber,messenger.userdata.nickname))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }

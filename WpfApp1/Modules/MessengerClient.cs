@@ -10,12 +10,12 @@ namespace WpfApp1.Modules
     {
         public Action<TCPmessage> domessage { get; set; }
         public Userdata userdata { get; set; }
-        public int chatnumber { get; set; }
+        public int Chatnumber { get; set; }
         public MessengerClient()
         {
             domessage = null;
             userdata = new Userdata();
-            chatnumber = 0;
+            Chatnumber = 0;
         }
         public bool requestLogin(string id, string password)
         {

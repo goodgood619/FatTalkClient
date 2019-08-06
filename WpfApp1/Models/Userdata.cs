@@ -19,6 +19,7 @@ namespace WpfApp1.Models
             Usernumber = 0;
             id = string.Empty;
             nickname = string.Empty;
+
         }
 
         public Userdata(string id, string nickname,string pasword, int Usernumber)

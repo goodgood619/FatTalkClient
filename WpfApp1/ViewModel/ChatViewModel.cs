@@ -22,13 +22,13 @@ namespace WpfApp1.ViewModel
     public class ChatViewModel :ViewModelBase
     {
         public MessengerClient messenger { get; set; }
-        public List<ObservableCollection<Chatdata>> Messages { get; set; }
+        public ObservableCollection<Chatdata> Messages { get; set; }
         private string usernickname = string.Empty;
         private string sendchatmessage = string.Empty;
         public ChatViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
-            Messages = new List<ObservableCollection<Chatdata>>();
+            Messages = new ObservableCollection<Chatdata>();
         }
 
         public void ResponseMessage(TCPmessage tcpmessage)
@@ -88,7 +88,7 @@ namespace WpfApp1.ViewModel
             Sendchatting = string.Empty;
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-               //Messages.Add()
+                Messages.Add(new Chatdata(s,snickname,Chatnumber));
             });
         }
         public string Sendchatting
@@ -130,9 +130,9 @@ namespace WpfApp1.ViewModel
             //내가 보낸거
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-                 //Messages.Add(new Chatdata(sendchatmessage,messenger.userdata.nickname,messenger.chatnumber));
+                 Messages.Add(new Chatdata(sendchatmessage,messenger.userdata.nickname,messenger.Chatnumber));
             });
-            if (!messenger.requestSendchatcommand(messenger.chatnumber, messenger.userdata.nickname,sendchatmessage))
+            if (!messenger.requestSendchatcommand(messenger.Chatnumber, messenger.userdata.nickname,sendchatmessage))
             {
                 MessageBox.Show("서버와 연결이 끊겼거나, 상대방이 채팅방을 나갔습니다");
             }
@@ -147,7 +147,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executeoutchat()
         {
-            if (!messenger.requestOutchatcommand(messenger.chatnumber, messenger.userdata.nickname))
+            if (!messenger.requestOutchatcommand(messenger.Chatnumber, messenger.userdata.nickname))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }
