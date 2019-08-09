@@ -8,19 +8,17 @@ namespace WpfApp1.Modules
 {
     public class MessengerClient : Tcpclient
     {
-        public Action<TCPmessage> domessage { get; set; }
-        public Userdata userdata { get; set; }
-        public int Chatnumber { get; set; }
+        public Action<TCPmessage> domessage { get; set; } = null;
+        public Userdata userdata { get; set; } = new Userdata();
+        private JsonHelp json = new JsonHelp();
         public MessengerClient()
         {
-            domessage = null;
-            userdata = new Userdata();
-            Chatnumber = 0;
+            //domessage = null;
+            //userdata = new Userdata();
         }
         public bool requestLogin(string id, string password)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.login;
             message.message = json.logininfo(id, password);
             return Send(message);
@@ -29,7 +27,6 @@ namespace WpfApp1.Modules
         public bool requestIdcheck(string id)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Idcheck;
             message.message = json.idcheckinfo(id);
             return Send(message);
@@ -37,7 +34,6 @@ namespace WpfApp1.Modules
         public bool requestJoin(string id, string password, string nickname, string phone)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Join;
             message.message = json.joininfo(id, password, nickname, phone);
             return Send(message);
@@ -45,7 +41,6 @@ namespace WpfApp1.Modules
         public bool requestNicknamecheck(string nickname)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Nicknamecheck;
             message.message = json.nicknamecheckinfo(nickname);
             return Send(message);
@@ -53,7 +48,6 @@ namespace WpfApp1.Modules
         public bool requestFindid(string id,string phone)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Findid;
             message.message = json.Findidphoneinfo(id,phone);
             return Send(message);
@@ -61,7 +55,6 @@ namespace WpfApp1.Modules
         public bool requestLogout(string usernickname)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.logout;
             message.message = json.nicknamecheckinfo(usernickname);
             return Send(message);
@@ -69,7 +62,6 @@ namespace WpfApp1.Modules
         public bool requestPlusfriend(string plusfriendid, string userid)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Plusfriend;
             message.message = json.plusidcheckinfo(plusfriendid, userid);
             return Send(message);
@@ -77,7 +69,6 @@ namespace WpfApp1.Modules
         public bool requestFreshcommand(string usernickname)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Refresh;
             message.message = json.nicknamecheckinfo(usernickname);
             return Send(message);
@@ -85,7 +76,6 @@ namespace WpfApp1.Modules
         public bool requestDeletefriendcommand(string[] removenickarray,string nickname)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Removefriend;
             message.message = json.deletenickinfo(removenickarray,nickname);  
             return Send(message);
@@ -93,7 +83,6 @@ namespace WpfApp1.Modules
         public bool requestMakechatcommand(string[] chatnickarray,string nickname)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Makechat;
             message.message = json.makechatnickinfo(chatnickarray, nickname);
             return Send(message);
@@ -101,7 +90,6 @@ namespace WpfApp1.Modules
         public bool requestSendchatcommand(int chatnumber,string sendusernickname,string Message)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Sendchat;
             message.Chatnumber = chatnumber;
             message.message = json.sendchatinfo(Message, sendusernickname);
@@ -110,7 +98,6 @@ namespace WpfApp1.Modules
         public bool requestOutchatcommand(int chatnumber,string sendusernickname)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Outchat;
             message.Chatnumber = chatnumber;
             message.message = json.nicknamecheckinfo(sendusernickname);
@@ -119,7 +106,6 @@ namespace WpfApp1.Modules
         public bool requestJoinchatcommand(string joinchatid,int chatnumber,string usernickname)
         {
             TCPmessage message = new TCPmessage();
-            JsonHelp json = new JsonHelp();
             message.Command = Command.Joinchat;
             message.Chatnumber = chatnumber;
             message.message = json.sendjoinchatinfo(joinchatid,usernickname);

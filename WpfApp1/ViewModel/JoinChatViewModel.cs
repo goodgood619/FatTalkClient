@@ -20,10 +20,12 @@ namespace WpfApp1.ViewModel
     {
         public MessengerClient messenger { get; set; }
         private string joinchatid;
+        public int Chatnumber { get; set; }
         public JoinChatViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             joinchatid = string.Empty;
+            Chatnumber = 0;
         }
 
         public string JoinchatId
@@ -66,7 +68,7 @@ namespace WpfApp1.ViewModel
         }
         public void ExecuteJoinchat()
         {
-            if (!messenger.requestJoinchatcommand(joinchatid,messenger.Chatnumber,messenger.userdata.nickname))
+            if (!messenger.requestJoinchatcommand(joinchatid,Chatnumber,messenger.userdata.nickname))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }

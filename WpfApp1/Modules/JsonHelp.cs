@@ -10,7 +10,7 @@ namespace WpfApp1.Modules
 {
     public class JsonHelp
     {
-        private JsonHelp jsonHelp;
+        //private JsonHelp jsonHelp;
         public JsonHelp()
         {
 

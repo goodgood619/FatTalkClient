@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using WpfApp1.ViewModel;
+
 namespace WpfApp1
 {
     /// <summary>
@@ -19,9 +21,11 @@ namespace WpfApp1
     /// </summary>
     public partial class ChatView : Window
     {
-        public ChatView()
+        public ChatView(ChatViewModel viewModel) // ChatView와 관련된 ChatViewModel이 만들어져서, 멀티 채팅방들을 관리가능 
         {
             InitializeComponent();
+
+            DataContext = viewModel as object;
         }
     }
 }

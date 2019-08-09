@@ -22,10 +22,12 @@ namespace WpfApp1.ViewModel
     public class MainViewModel : ViewModelBase
     {
         public MessengerClient messenger { get; set; }
+        public MessangerService messangerService { get; set; }
         private int fcnt = 0;
         private string usernickname = string.Empty;
         private ObservableCollection<Frienddata> _Friendlist;
         private ObservableCollection<Frienddata> _Selectlist;
+        private Imessanger _imessanger;
         public MainViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
@@ -33,6 +35,7 @@ namespace WpfApp1.ViewModel
             _Selectlist = new ObservableCollection<Frienddata>();
             _Friendlist = new ObservableCollection<Frienddata>();
             fcnt = 0;
+            _imessanger = imessanger;
         }
         public ObservableCollection<Frienddata> Selectlist
         {
@@ -139,10 +142,12 @@ namespace WpfApp1.ViewModel
                 case 3:
                     MessageBox.Show("채팅방이 개설되었습니다.");
                     Selectlist.Clear();
-                    messenger.Chatnumber = chatnumber;
+                    ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
+                    chatViewModel.Chatnumber = chatnumber;
+                    chatViewModel.Usernickname = NICKNAME;
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
-                        ChatView chatView = new ChatView();
+                        ChatView chatView = new ChatView(chatViewModel);
                         chatView.Show();
                     });
                     break;
@@ -156,8 +161,11 @@ namespace WpfApp1.ViewModel
                 MessageBox.Show("친구 삭제가 완료되었습니다. 새로고침을 눌러주세요");
             }
         }
+
         public void Validlogout(int check)
         {
+            
+
             messenger.userdata.Reset();
             App.Current.Dispatcher.InvokeAsync(() =>
             {

@@ -23,12 +23,16 @@ namespace WpfApp1.ViewModel
     {
         public MessengerClient messenger { get; set; }
         public ObservableCollection<Chatdata> Messages { get; set; }
+        public int Chatnumber { get; set; }
+        public string Usernickname { get; set; }
         private string usernickname = string.Empty;
         private string sendchatmessage = string.Empty;
         public ChatViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             Messages = new ObservableCollection<Chatdata>();
+            Chatnumber = 0;
+            Usernickname = string.Empty;
         }
 
         public void ResponseMessage(TCPmessage tcpmessage)
@@ -130,9 +134,9 @@ namespace WpfApp1.ViewModel
             //내가 보낸거
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-                 Messages.Add(new Chatdata(sendchatmessage,messenger.userdata.nickname,messenger.Chatnumber));
+                 Messages.Add(new Chatdata(sendchatmessage,messenger.userdata.nickname,Chatnumber));
             });
-            if (!messenger.requestSendchatcommand(messenger.Chatnumber, messenger.userdata.nickname,sendchatmessage))
+            if (!messenger.requestSendchatcommand(Chatnumber, messenger.userdata.nickname,sendchatmessage))
             {
                 MessageBox.Show("서버와 연결이 끊겼거나, 상대방이 채팅방을 나갔습니다");
             }
@@ -147,7 +151,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executeoutchat()
         {
-            if (!messenger.requestOutchatcommand(messenger.Chatnumber, messenger.userdata.nickname))
+            if (!messenger.requestOutchatcommand(Chatnumber, messenger.userdata.nickname))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }

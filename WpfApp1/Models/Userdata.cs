@@ -10,7 +10,6 @@ namespace WpfApp1.Models
 {
     public class Userdata : ViewModelBase
     {
-
         public int Usernumber { get; set; }
         public string id { get; set; }
         public string nickname { get; set; }
@@ -19,14 +18,13 @@ namespace WpfApp1.Models
             Usernumber = 0;
             id = string.Empty;
             nickname = string.Empty;
-
         }
 
-        public Userdata(string id, string nickname,string pasword, int Usernumber)
+        public Userdata(string id, string nickname, int Usernumber)
         {
-            this.id = id;
-            this.nickname = nickname;
-            this.Usernumber = Usernumber;
+           this.id = id;
+           this.nickname = nickname;
+           this.Usernumber = Usernumber;
         }
         public void Reset()
         {

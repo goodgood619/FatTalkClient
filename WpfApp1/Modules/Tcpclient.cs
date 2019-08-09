@@ -20,14 +20,14 @@ namespace WpfApp1.Modules
         {
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             data = new byte[32000];
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.10.3"), 3300);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.35.224"), 3300);
             client.BeginConnect(ep, connect_callback, null);
         }
 
         private void connect_callback(IAsyncResult ar)
         {
             client.EndConnect(ar);
-            client.BeginReceive(data, 0, data.Length, 0, receive_callback, null);
+            client.BeginReceive(data, 0, data.Length,SocketFlags.None, receive_callback, null);
         }
 
         private void receive_callback(IAsyncResult ar)
@@ -37,7 +37,7 @@ namespace WpfApp1.Modules
                 client.EndReceive(ar);
                 TCPmessage receivemessage = new TCPmessage(data);
                 ResponseMessage(receivemessage);
-                client.BeginReceive(data, 0, data.Length, 0, receive_callback, null);
+                client.BeginReceive(data, 0, data.Length,SocketFlags.None, receive_callback, null);
             }
             catch (Exception e)
             {
@@ -51,7 +51,7 @@ namespace WpfApp1.Modules
             try
             {
                 byte[] bytesend = tcpmessage.tobytedata();
-                client.BeginSend(bytesend, 0, bytesend.Length, 0, send_callback, null);
+                client.BeginSend(bytesend, 0, bytesend.Length,SocketFlags.None, send_callback, null);
                 ok = true;
             }
             catch (Exception e)
