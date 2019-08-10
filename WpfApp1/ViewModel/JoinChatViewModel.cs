@@ -19,13 +19,15 @@ namespace WpfApp1.ViewModel
     public class JoinChatViewModel :ViewModelBase
     {
         public MessengerClient messenger { get; set; }
-        private string joinchatid;
+        private string joinchatid; //초대할아이디
         public int Chatnumber { get; set; }
+        private Imessanger _imessanger;
         public JoinChatViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
-            joinchatid = string.Empty;
+            joinchatid = string.Empty; // 초대할아이디
             Chatnumber = 0;
+            _imessanger = imessanger;
         }
 
         public string JoinchatId
@@ -41,10 +43,35 @@ namespace WpfApp1.ViewModel
                     Validjoinchat(tcpmessage.check,tcpmessage.message,tcpmessage.Chatnumber);
                     break;
                 case Command.ReceiveJoinchat:
+                    Validreceivejoinchat(tcpmessage.check,tcpmessage.Chatnumber,tcpmessage.message);
                     break;
             }
         }
+        public void Validreceivejoinchat(int check,int Chatnumber,string message)
+        {
+            switch (check)
+            {
+                case 0:
+                    MessageBox.Show("초대하신 아이디는 로그아웃되어있습니다.");
+                    break;
+                case 1:
+                    MessageBox.Show("초대하신 아이디가 친구차단을 하였습니다.");
+                    break;
+                case 2:
+                    MessageBox.Show("방에 초대되었습니다.");
+                    ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
+                    chatViewModel.Chatnumber =Chatnumber;
+                    chatViewModel.NICKNAME = message;
+                    App.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        ChatView chatView = new ChatView(chatViewModel);
+                        chatView.Show();
+                    });
 
+                    break;
+            }
+
+        }
         public void Validjoinchat(int check, string message, int Chatnumber)
         {
             //방을 찾아서, 그 방에있는 멤버를 추가시킴(아직구현안함)

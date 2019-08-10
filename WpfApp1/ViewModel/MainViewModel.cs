@@ -118,11 +118,38 @@ namespace WpfApp1.ViewModel
                     ValidMakechat(tcpmessage.message, tcpmessage.check,tcpmessage.Chatnumber);
                     break;
                 case Command.ReceiveJoinchat:
+                    Validreceivejoinchat(tcpmessage.check, tcpmessage.Chatnumber, tcpmessage.message);
+                    break;
+            }
+
+        }
+
+        public void Validreceivejoinchat(int check, int Chatnumber, string message)
+        {
+            switch (check)
+            {
+                case 0:
+                    MessageBox.Show("초대하신 아이디는 로그아웃되어있습니다.");
+                    break;
+                case 1:
+                    MessageBox.Show("초대하신 아이디가 친구차단을 하였습니다.");
+                    break;
+                case 2:
+                    MessageBox.Show("방에 초대되었습니다.");
+                    ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
+                    chatViewModel.Chatnumber = Chatnumber;
+                    chatViewModel.NICKNAME = message;
+                    App.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        ChatView chatView = new ChatView(chatViewModel);
+                        chatView.Show();
+                    });
 
                     break;
             }
 
         }
+
         public void ValidMakechat(string message,int check,int chatnumber)
         {
             switch (check)
@@ -132,7 +159,7 @@ namespace WpfApp1.ViewModel
                     Selectlist.Clear();
                     break;
                 case 1:
-                    MessageBox.Show("초대한 친구가 차단했거나, 로그아웃된 닉네임이 있습니다. 다시 선택해주세요");
+                    MessageBox.Show("로그아웃된 닉네임이 있습니다. 다시 선택해주세요");
                     Selectlist.Clear();
                     break;
                 case 2:
@@ -151,7 +178,10 @@ namespace WpfApp1.ViewModel
                         chatView.Show();
                     });
                     break;
-
+                case 4:
+                    MessageBox.Show("초대하려는 친구들 중에 친구 차단을 한경우가 있습니다. 다시 선택해주세요");
+                    Selectlist.Clear();
+                    break;
             }
         }
         public void ValidRemove(int check)
@@ -279,6 +309,24 @@ namespace WpfApp1.ViewModel
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }
+        }
+
+        public ICommand Blockfriendcommand
+        {
+            get
+            {
+                RelayCommand command = new RelayCommand(Executeblockfriend);
+                return command;
+            }
+        }
+        public void Executeblockfriend()
+        {
+            App.Current.Dispatcher.InvokeAsync(() =>
+            {
+                BlockfriendView blockfriendView = new BlockfriendView();
+                blockfriendView.Show();
+            });
+
         }
     }
 }

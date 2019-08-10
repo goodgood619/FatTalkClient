@@ -111,6 +111,13 @@ namespace WpfApp1.Modules
             message.message = json.sendjoinchatinfo(joinchatid,usernickname);
             return Send(message);
         }
+        public bool requestBlockfriendcommand(string blocknickname,string blockedid)
+        {
+            TCPmessage message = new TCPmessage();
+            message.Command = Command.Blockfriend;
+            message.message = json.sendjoinchatinfo(blockedid, blocknickname);
+            return Send(message);
+        }
         public override void ResponseMessage(TCPmessage message)
         {
             if (domessage != null)

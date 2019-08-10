@@ -94,6 +94,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="BlockfriendView.xaml.cs">
+      <DependentUpon>BlockfriendView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ChatView.xaml.cs">
       <DependentUpon>ChatView.xaml</DependentUpon>
     </Compile>
@@ -124,6 +127,7 @@
     </Compile>
     <Compile Include="Service\Imessanger.cs" />
     <Compile Include="Service\MessangerService.cs" />
+    <Compile Include="ViewModel\BlockfriendViewModel.cs" />
     <Compile Include="ViewModel\ChatViewModel.cs" />
     <Compile Include="ViewModel\FindlogininfoViewModel.cs" />
     <Compile Include="ViewModel\JoinChatViewModel.cs" />
@@ -132,6 +136,10 @@
     <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\PlusfriendViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Page Include="BlockfriendView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ChatView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -27,12 +27,16 @@ namespace WpfApp1.ViewModel
         public string Usernickname { get; set; }
         private string usernickname = string.Empty;
         private string sendchatmessage = string.Empty;
+        private Imessanger _imessanger;
+        private JsonHelp jsonHelp;
         public ChatViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             Messages = new ObservableCollection<Chatdata>();
             Chatnumber = 0;
             Usernickname = string.Empty;
+            _imessanger = imessanger;
+            jsonHelp = new JsonHelp();
         }
 
         public void ResponseMessage(TCPmessage tcpmessage)
@@ -43,14 +47,40 @@ namespace WpfApp1.ViewModel
                     Validjoinchat();
                     break;
                 case Command.Outchat:
-                    Validoutchat(tcpmessage.check, tcpmessage.Chatnumber);
+                    Validoutchat(tcpmessage.check, tcpmessage.Chatnumber,tcpmessage.message);
                     break;
                 case Command.Sendchat:
                     Validsendchat(tcpmessage.message,tcpmessage.Chatnumber);
                     break;
                 case Command.ReceiveJoinchat: //다 추가시켜놔야겠네(메인뷰, 친구추가뷰,채팅뷰 3개추가)
+                    Validreceivejoinchat(tcpmessage.check,tcpmessage.Chatnumber,tcpmessage.message);
                     break;
             }
+        }
+        public void Validreceivejoinchat(int check, int Chatnumber, string message)
+        {
+            switch (check)
+            {
+                case 0:
+                    MessageBox.Show("초대하신 아이디는 로그아웃되어있습니다.");
+                    break;
+                case 1:
+                    MessageBox.Show("초대하신 아이디가 친구차단을 하였습니다.");
+                    break;
+                case 2:
+                    MessageBox.Show("방에 초대되었습니다.");
+                    ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
+                    chatViewModel.Chatnumber = Chatnumber;
+                    chatViewModel.NICKNAME = message;
+                    App.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        ChatView chatView = new ChatView(chatViewModel);
+                        chatView.Show();
+                    });
+
+                    break;
+            }
+
         }
         public void Validjoinchat()
         {
@@ -69,15 +99,29 @@ namespace WpfApp1.ViewModel
                 }
             });
         }
-        public void Validoutchat(int check,int Chatnumber)
+        public void Validoutchat(int check,int Chatnumber,string message)
         {
             //방을 찾아서, 그 방에 있는 현재의 유저닉네임 삭제,(아직구현안함)
-            App.Current.Dispatcher.InvokeAsync(() =>
+            //string message = ~님이 나갔습니다
+            switch (check)
             {
-                MainView mainView = new MainView();
-                mainView.Show();
-            });
-            closeWindow();
+                case 0: //방에 남아있는 사람들
+                    Dictionary<string, string> outchatnick = jsonHelp.getnickinfo(message);
+                    string outchatnickname = outchatnick[Jsonname.Nickname];
+                    string query = $"'{outchatnickname}'님이 나갔습니다.";
+                    App.Current.Dispatcher.InvokeAsync(() => {
+                        Messages.Add(new Chatdata(query,"Chat out",Chatnumber));
+                    });
+                    break;
+
+                case 1: //방을 나간사람
+                    if (this.Chatnumber == Chatnumber)
+                    {
+                        MessageBox.Show("채팅방을 나갔습니다.");
+                        closeWindow();
+                    }
+                    break;
+            }
         }
         public void Validsendchat(string message,int Chatnumber)
         {
@@ -89,11 +133,13 @@ namespace WpfApp1.ViewModel
             Dictionary<string, string> sendusernickname = jsonHelp.getnickinfo(message);
             string s = receivemessage[Jsonname.Message];
             string snickname = sendusernickname[Jsonname.Nickname];
-            Sendchatting = string.Empty;
-            App.Current.Dispatcher.InvokeAsync(() =>
+            if (this.Chatnumber == Chatnumber)
             {
-                Messages.Add(new Chatdata(s,snickname,Chatnumber));
-            });
+                App.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    Messages.Add(new Chatdata(s, snickname, Chatnumber));
+                });
+            }
         }
         public string Sendchatting
         {

@@ -8,9 +8,7 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="ChatView" Height="450" Width="800">
-    <Window.DataContext>
-        <Binding Path="Chat" Source="{StaticResource ViewModelLocator}"/>
-    </Window.DataContext>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50*"/>

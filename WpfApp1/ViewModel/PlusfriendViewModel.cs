@@ -67,10 +67,7 @@ namespace WpfApp1.ViewModel
 
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
-
-
                         Friendlist.Add(new Frienddata(plusnickname));
-
                     });
                     Plusid = string.Empty;
                     break;
@@ -80,6 +77,10 @@ namespace WpfApp1.ViewModel
                     break;
                 case 3:
                     MessageBox.Show("이미 친구로 추가된 아이디입니다. 다시 입력해주세요");
+                    Plusid = string.Empty;
+                    break;
+                case 4:
+                    MessageBox.Show("친구 추가하려는 유저들 중 당신을 차단한 사람이 존재합니다. 다시 입력해주세요");
                     Plusid = string.Empty;
                     break;
             }

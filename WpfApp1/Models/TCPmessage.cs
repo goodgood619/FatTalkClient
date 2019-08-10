@@ -68,6 +68,7 @@ namespace WpfApp1.Models
         Removefriend,
         Sendchat,
         Nicknamecheck,
-        ReceiveJoinchat
+        ReceiveJoinchat,
+        Blockfriend
     }
 }
