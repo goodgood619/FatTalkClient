@@ -31,7 +31,14 @@
                     <KeyBinding Key="Enter" Command="{Binding Path=Blockfriendcommand}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <Button Content="친구 차단" Grid.Row="1" Grid.Column="2" Command="{Binding Path=Blockfriendcommand}"/>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50*"/>
+                    <RowDefinition Height="50*"/>
+                </Grid.RowDefinitions>
+                <Button Content="친구 차단" Grid.Row="0" Grid.Column="0" Command="{Binding Path=Blockfriendcommand}"/>
+                <Button Content="차단 해제" Grid.Row="1" Grid.Column="0" Command="{Binding Path=Notblockfriendcommand}"/>
+            </Grid>
         </Grid>
     </Grid>
 </Window>

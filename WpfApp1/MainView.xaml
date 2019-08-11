@@ -22,7 +22,7 @@
                 <ColumnDefinition Width="500*"/>
                 <ColumnDefinition Width="150*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="친구차단" Grid.Row="1" Grid.Column="1" Command="{Binding Path=Blockfriendcommand}"/>
+            <Button Content="차단/해제" Grid.Row="1" Grid.Column="1" Command="{Binding Path=Blockfriendcommand}"/>
         </Grid>
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>

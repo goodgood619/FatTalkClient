@@ -54,6 +54,9 @@ namespace WpfApp1.ViewModel
                 case Command.Blockfriend:
                     Validblockfriend(tcpmessage.check,tcpmessage.message);
                     break;
+                case Command.NotBlockfriend:
+                    Validnotblockfriend(tcpmessage.check);
+                    break;
             }
         }
         public void Validblockfriend(int check,string message)
@@ -73,7 +76,7 @@ namespace WpfApp1.ViewModel
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         Frienddata frienddata = Friendlist.First(x => x.Fnickname == deletenickname);
-                        Friendlist.Remove(frienddata);
+                        if(frienddata!=null) Friendlist.Remove(frienddata);
                     });
                     Blockid = string.Empty;
                     break;
@@ -85,6 +88,29 @@ namespace WpfApp1.ViewModel
                     MessageBox.Show("이미 차단이 된 아이디입니다. 다시 입력해주세요");
                     Blockid = string.Empty;
                     break;
+            }
+        }
+        public void Validnotblockfriend(int check)
+        {
+            switch (check)
+            {
+                case 0:
+                    MessageBox.Show("존재하지 않는 아이디입니다. 다시 입력해주세요");
+                    Blockid = string.Empty;
+                    break;
+                case 1:
+                    MessageBox.Show("친구 차단이 해제되었습니다");
+                    Blockid = string.Empty;
+                    break;
+                case 2:
+                    MessageBox.Show("차단해제하려는 친구의 아이디와 유저의 아이디와 일치합니다. 다시 입력해주세요");
+                    Blockid = string.Empty;
+                    break;
+                case 3:
+                    MessageBox.Show("이미 해제가 된 아이디입니다. 다시 입력해주세요");
+                    Blockid = string.Empty;
+                    break;
+
             }
         }
         public ICommand Blockfriendcommand
@@ -109,5 +135,28 @@ namespace WpfApp1.ViewModel
                 }
             }
         }
+        public ICommand Notblockfriendcommand
+        {
+            get
+            {
+                RelayCommand command = new RelayCommand(Executenotblockcommand);
+                return command;
+            }
+        }
+        public void Executenotblockcommand()
+        {
+            if (string.IsNullOrEmpty(Blockid))
+            {
+                MessageBox.Show("아이디를 입력해주세요");
+            }
+            else
+            {
+                if (!messenger.requestNotBlockfriendcommand(messenger.userdata.nickname, Blockid))
+                {
+                    MessageBox.Show("서버와 연결이 끊겼습니다");
+                }
+            }
+        }
+
     }
 }
