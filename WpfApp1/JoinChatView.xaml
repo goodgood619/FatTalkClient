@@ -8,9 +8,6 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="JoinChatView" Height="200" Width="200">
-    <Window.DataContext>
-        <Binding Path="joinchat" Source="{StaticResource ViewModelLocator}"/>
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>

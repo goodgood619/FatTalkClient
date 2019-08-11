@@ -44,7 +44,7 @@ namespace WpfApp1.ViewModel
             switch (tcpmessage.Command)
             {
                 case Command.Joinchat:
-                    Validjoinchat();
+                    Validjoinchat(tcpmessage.check,tcpmessage.message,tcpmessage.Chatnumber);
                     break;
                 case Command.Outchat:
                     Validoutchat(tcpmessage.check, tcpmessage.Chatnumber,tcpmessage.message);
@@ -59,32 +59,28 @@ namespace WpfApp1.ViewModel
         }
         public void Validreceivejoinchat(int check, int Chatnumber, string message)
         {
-            switch (check)
-            {
-                case 0:
-                    MessageBox.Show("초대하신 아이디는 로그아웃되어있습니다.");
-                    break;
-                case 1:
-                    MessageBox.Show("초대하신 아이디가 친구차단을 하였습니다.");
-                    break;
-                case 2:
-                    MessageBox.Show("방에 초대되었습니다.");
-                    ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
-                    chatViewModel.Chatnumber = Chatnumber;
-                    chatViewModel.NICKNAME = message;
-                    App.Current.Dispatcher.InvokeAsync(() =>
-                    {
-                        ChatView chatView = new ChatView(chatViewModel);
-                        chatView.Show();
-                    });
-
-                    break;
-            }
+            
 
         }
-        public void Validjoinchat()
+        public void Validjoinchat(int check,string message,int Chatnumber)
         {
-            //기존에 있는 방에 멤버들이 초대가 되었다는 메시지를 띄우기
+            switch (check)
+            {
+                
+
+                case 1: //기존방에 있는사람들 초대
+                    Dictionary<string, string> joinchatnick = jsonHelp.getnickinfo(message);
+                    string joinedchatnickname = joinchatnick[Jsonname.Nickname];
+                    string query = $"'{joinedchatnickname}'님이 초대되었습니다.";
+                    if (this.Chatnumber == Chatnumber)
+                    {
+                        App.Current.Dispatcher.InvokeAsync(() =>
+                        {
+                            Messages.Add(new Chatdata(query, "Chat in", Chatnumber));
+                        });
+                    }
+                    break;
+            }
         }
         public void closeWindow()
         {
@@ -109,9 +105,13 @@ namespace WpfApp1.ViewModel
                     Dictionary<string, string> outchatnick = jsonHelp.getnickinfo(message);
                     string outchatnickname = outchatnick[Jsonname.Nickname];
                     string query = $"'{outchatnickname}'님이 나갔습니다.";
-                    App.Current.Dispatcher.InvokeAsync(() => {
-                        Messages.Add(new Chatdata(query,"Chat out",Chatnumber));
-                    });
+                    if (this.Chatnumber == Chatnumber)
+                    {
+                        App.Current.Dispatcher.InvokeAsync(() =>
+                        {
+                            Messages.Add(new Chatdata(query, "Chat out", Chatnumber));
+                        });
+                    }
                     break;
 
                 case 1: //방을 나간사람
@@ -161,9 +161,12 @@ namespace WpfApp1.ViewModel
         }
         public void Executejoinchat()
         {
+            JoinChatViewModel joinChatViewModel = new JoinChatViewModel(_imessanger);
+            joinChatViewModel.Chatnumber = this.Chatnumber;
+            joinChatViewModel.Usernickname = NICKNAME;
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-                JoinChatView joinChatView = new JoinChatView();
+                JoinChatView joinChatView = new JoinChatView(joinChatViewModel);
                 joinChatView.Show();
             });
         }

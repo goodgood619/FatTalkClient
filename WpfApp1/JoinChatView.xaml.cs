@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
+using WpfApp1.ViewModel;
+
 namespace WpfApp1
 {
     /// <summary>
@@ -19,9 +21,10 @@ namespace WpfApp1
     /// </summary>
     public partial class JoinChatView : Window
     {
-        public JoinChatView()
+        public JoinChatView(JoinChatViewModel joinChatViewModel)
         {
             InitializeComponent();
+            DataContext = joinChatViewModel as object;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace WpfApp1.ViewModel
             //SimpleIoc.Default.Register<ChatViewModel>();
             SimpleIoc.Default.Register<FindlogininfoViewModel>();
             SimpleIoc.Default.Register<PlusfriendViewModel>();
-            SimpleIoc.Default.Register<JoinChatViewModel>();
+            //SimpleIoc.Default.Register<JoinChatViewModel>();
             SimpleIoc.Default.Register<BlockfriendViewModel>();
         }
         public LoginViewModel login => SimpleIoc.Default.GetInstance<LoginViewModel>();
@@ -35,7 +35,7 @@ namespace WpfApp1.ViewModel
         //public ChatViewModel Chat => SimpleIoc.Default.GetInstance<ChatViewModel>();
         public FindlogininfoViewModel FindIdPassword => SimpleIoc.Default.GetInstance<FindlogininfoViewModel>();
         public PlusfriendViewModel Plusfriend => SimpleIoc.Default.GetInstance<PlusfriendViewModel>();
-        public JoinChatViewModel joinchat => SimpleIoc.Default.GetInstance<JoinChatViewModel>();
+        //public JoinChatViewModel joinchat => SimpleIoc.Default.GetInstance<JoinChatViewModel>();
         public BlockfriendViewModel Blockfriend => SimpleIoc.Default.GetInstance<BlockfriendViewModel>();
         public static void cleanup()
         {

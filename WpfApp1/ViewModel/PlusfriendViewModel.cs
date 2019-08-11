@@ -83,6 +83,10 @@ namespace WpfApp1.ViewModel
                     MessageBox.Show("친구 추가하려는 유저들 중 당신을 차단한 사람이 존재합니다. 다시 입력해주세요");
                     Plusid = string.Empty;
                     break;
+                case 5:
+                    MessageBox.Show("본인이 이미 차단한 아이디입니다. 다시 입력해주세요");
+                    Plusid = string.Empty;
+                    break;
             }
         }
         public string Plusid

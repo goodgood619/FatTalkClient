@@ -21,12 +21,15 @@ namespace WpfApp1.ViewModel
         public MessengerClient messenger { get; set; }
         private string joinchatid; //초대할아이디
         public int Chatnumber { get; set; }
+        public string Usernickname { get; set; }
+        private string usernickname = string.Empty;
         private Imessanger _imessanger;
         public JoinChatViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             joinchatid = string.Empty; // 초대할아이디
             Chatnumber = 0;
+            Usernickname = string.Empty;
             _imessanger = imessanger;
         }
 
@@ -51,13 +54,8 @@ namespace WpfApp1.ViewModel
         {
             switch (check)
             {
-                case 0:
-                    MessageBox.Show("초대하신 아이디는 로그아웃되어있습니다.");
-                    break;
+                
                 case 1:
-                    MessageBox.Show("초대하신 아이디가 친구차단을 하였습니다.");
-                    break;
-                case 2:
                     MessageBox.Show("방에 초대되었습니다.");
                     ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
                     chatViewModel.Chatnumber =Chatnumber;
@@ -74,14 +72,16 @@ namespace WpfApp1.ViewModel
         }
         public void Validjoinchat(int check, string message, int Chatnumber)
         {
-            //방을 찾아서, 그 방에있는 멤버를 추가시킴(아직구현안함)
+            // 초대할 친구 아이디가 없거나, 로그아웃 했거나, 차단을 했거나를 구현해야함
             switch (check)
             {
                 case 0:
                     MessageBox.Show("초대할 친구가 차단하여 초대가 불가능합니다.");
+                    JoinchatId = string.Empty;
                     break;
                 case 1:
                     MessageBox.Show("친구가 초대되었습니다.");
+                    JoinchatId = string.Empty;
                     break;
             }
         }
@@ -95,7 +95,7 @@ namespace WpfApp1.ViewModel
         }
         public void ExecuteJoinchat()
         {
-            if (!messenger.requestJoinchatcommand(joinchatid,Chatnumber,messenger.userdata.nickname))
+            if (!messenger.requestJoinchatcommand(joinchatid, Chatnumber, Usernickname)) 
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }

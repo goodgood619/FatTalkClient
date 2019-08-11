@@ -55,7 +55,7 @@ namespace WpfApp1.ViewModel
                     Validblockfriend(tcpmessage.check,tcpmessage.message);
                     break;
                 case Command.NotBlockfriend:
-                    Validnotblockfriend(tcpmessage.check);
+                    Validnotblockfriend(tcpmessage.check,tcpmessage.message);
                     break;
             }
         }
@@ -76,7 +76,7 @@ namespace WpfApp1.ViewModel
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         Frienddata frienddata = Friendlist.First(x => x.Fnickname == deletenickname);
-                        if(frienddata!=null) Friendlist.Remove(frienddata);
+                        if(frienddata!=null) Friendlist.Remove(frienddata); //만약 친구목록에 친구가 있다면 삭제
                     });
                     Blockid = string.Empty;
                     break;
@@ -88,9 +88,10 @@ namespace WpfApp1.ViewModel
                     MessageBox.Show("이미 차단이 된 아이디입니다. 다시 입력해주세요");
                     Blockid = string.Empty;
                     break;
+
             }
         }
-        public void Validnotblockfriend(int check)
+        public void Validnotblockfriend(int check,string message)
         {
             switch (check)
             {
@@ -108,6 +109,16 @@ namespace WpfApp1.ViewModel
                     break;
                 case 3:
                     MessageBox.Show("이미 해제가 된 아이디입니다. 다시 입력해주세요");
+                    Blockid = string.Empty;
+                    break;
+                case 4:
+                    MessageBox.Show("친구 목록에 있던 친구가 해제 되면서 친구로 추가되었습니다.");
+                    JsonHelp json = new JsonHelp();
+                    Dictionary<string, string> notblocknickinfo = json.getnickinfo(message);
+                    string notblocknickname = notblocknickinfo[Jsonname.Nickname];
+                    App.Current.Dispatcher.InvokeAsync(()=>{ //친구목록에 있었던 친구면 다시 복구
+                        Friendlist.Add(new Frienddata(notblocknickname));
+                    });
                     Blockid = string.Empty;
                     break;
 

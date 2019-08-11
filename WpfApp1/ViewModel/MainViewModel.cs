@@ -128,13 +128,7 @@ namespace WpfApp1.ViewModel
         {
             switch (check)
             {
-                case 0:
-                    MessageBox.Show("초대하신 아이디는 로그아웃되어있습니다.");
-                    break;
                 case 1:
-                    MessageBox.Show("초대하신 아이디가 친구차단을 하였습니다.");
-                    break;
-                case 2:
                     MessageBox.Show("방에 초대되었습니다.");
                     ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
                     chatViewModel.Chatnumber = Chatnumber;
