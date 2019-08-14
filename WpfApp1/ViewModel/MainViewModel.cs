@@ -28,6 +28,7 @@ namespace WpfApp1.ViewModel
         private ObservableCollection<Frienddata> _Friendlist;
         private ObservableCollection<Frienddata> _Selectlist;
         private Imessanger _imessanger;
+        public List<ChatViewModel> currentchatrooms { get; set; }
         public MainViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
@@ -35,6 +36,7 @@ namespace WpfApp1.ViewModel
             _Selectlist = new ObservableCollection<Frienddata>();
             _Friendlist = new ObservableCollection<Frienddata>();
             fcnt = 0;
+            currentchatrooms = new List<ChatViewModel>();
             _imessanger = imessanger;
         }
         public ObservableCollection<Frienddata> Selectlist
@@ -130,6 +132,7 @@ namespace WpfApp1.ViewModel
             {
                 case 1:
                     MessageBox.Show("방에 초대되었습니다.");
+                    
                     ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
                     chatViewModel.Chatnumber = Chatnumber;
                     chatViewModel.NICKNAME = message;
@@ -137,8 +140,7 @@ namespace WpfApp1.ViewModel
                     {
                         ChatView chatView = new ChatView(chatViewModel);
                         chatView.Show();
-                    });
-
+                    });  
                     break;
             }
 
@@ -166,6 +168,7 @@ namespace WpfApp1.ViewModel
                     ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
                     chatViewModel.Chatnumber = chatnumber;
                     chatViewModel.Usernickname = NICKNAME;
+                    currentchatrooms.Add(chatViewModel);
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         ChatView chatView = new ChatView(chatViewModel);

@@ -20,7 +20,7 @@ namespace WpfApp1.Modules
         {
             client = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             data = new byte[32000];
-            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("192.168.35.28"), 3300);
+            IPEndPoint ep = new IPEndPoint(IPAddress.Parse("10.2.0.172"), 3300);
             client.BeginConnect(ep, connect_callback, null);
         }
 
@@ -50,6 +50,7 @@ namespace WpfApp1.Modules
             bool ok = false;
             try
             {
+
                 byte[] bytesend = tcpmessage.tobytedata();
                 client.BeginSend(bytesend, 0, bytesend.Length,SocketFlags.None, send_callback, null);
                 ok = true;

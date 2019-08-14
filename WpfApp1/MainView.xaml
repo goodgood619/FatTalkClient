@@ -11,6 +11,11 @@
     <Window.DataContext>
         <Binding Path="Main" Source="{StaticResource ViewModelLocator}"/>
     </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding Path=Logoutcommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="500*"/>

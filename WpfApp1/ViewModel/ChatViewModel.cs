@@ -52,15 +52,7 @@ namespace WpfApp1.ViewModel
                 case Command.Sendchat:
                     Validsendchat(tcpmessage.message,tcpmessage.Chatnumber);
                     break;
-                case Command.ReceiveJoinchat: //다 추가시켜놔야겠네(메인뷰, 친구추가뷰,채팅뷰 3개추가)
-                    Validreceivejoinchat(tcpmessage.check,tcpmessage.Chatnumber,tcpmessage.message);
-                    break;
             }
-        }
-        public void Validreceivejoinchat(int check, int Chatnumber, string message)
-        {
-            
-
         }
         public void Validjoinchat(int check,string message,int Chatnumber)
         {
@@ -187,6 +179,7 @@ namespace WpfApp1.ViewModel
             });
             if (!messenger.requestSendchatcommand(Chatnumber, messenger.userdata.nickname,sendchatmessage))
             {
+                Sendchatting = string.Empty;
                 MessageBox.Show("서버와 연결이 끊겼거나, 상대방이 채팅방을 나갔습니다");
             }
         }
