@@ -28,15 +28,15 @@ namespace WpfApp1.ViewModel
         private ObservableCollection<Frienddata> _Friendlist;
         private ObservableCollection<Frienddata> _Selectlist;
         private Imessanger _imessanger;
-        public List<ChatViewModel> currentchatrooms { get; set; }
+        private List<ChatViewModel> chatViewModels;
         public MainViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             usernickname = messenger.userdata.nickname;
             _Selectlist = new ObservableCollection<Frienddata>();
             _Friendlist = new ObservableCollection<Frienddata>();
+            chatViewModels = new List<ChatViewModel>();
             fcnt = 0;
-            currentchatrooms = new List<ChatViewModel>();
             _imessanger = imessanger;
         }
         public ObservableCollection<Frienddata> Selectlist
@@ -136,6 +136,7 @@ namespace WpfApp1.ViewModel
                     ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
                     chatViewModel.Chatnumber = Chatnumber;
                     chatViewModel.NICKNAME = message;
+                    chatViewModels.Add(chatViewModel);
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         ChatView chatView = new ChatView(chatViewModel);
@@ -168,7 +169,7 @@ namespace WpfApp1.ViewModel
                     ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
                     chatViewModel.Chatnumber = chatnumber;
                     chatViewModel.Usernickname = NICKNAME;
-                    currentchatrooms.Add(chatViewModel);
+                    chatViewModels.Add(chatViewModel);
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         ChatView chatView = new ChatView(chatViewModel);
@@ -192,10 +193,14 @@ namespace WpfApp1.ViewModel
         public void Validlogout(int check)
         {
             
-
+            // 여기에 현재 nickname으로 열려있는 모든 chatview, joinchatview, roomnamechangeview를 싹다 지워야함
             messenger.userdata.Reset();
             App.Current.Dispatcher.InvokeAsync(() =>
             {
+                for (int i = 0; i < chatViewModels.Count; i++)
+                {
+                    chatViewModels[i].closeWindow();
+                }
                 Fcnt = 0;
                 Friendlist.Clear();
                 NICKNAME = string.Empty;
@@ -243,9 +248,9 @@ namespace WpfApp1.ViewModel
         }
         public void Executelogout()
         {
-            if (messenger.requestLogout(messenger.userdata.nickname))
+            if (!messenger.requestLogout(messenger.userdata.nickname))
             {
-                MessageBox.Show("로그아웃되었습니다.");
+                MessageBox.Show("서버와 연결이 끊겼습니당");
             }
         }
         public ICommand Plusfriendcommand

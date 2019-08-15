@@ -91,9 +91,22 @@ namespace WpfApp1.Modules
             ret.Add(Jsonname.Message, jsonParse.GetstringValue(Jsonname.Message));
             return ret;
         }
+        public Dictionary<string,string> getchangeroomnameinfo(string data)
+        {
+            Dictionary<string, string> ret = new Dictionary<string, string>();
+            JsonParse jsonParse = new JsonParse(data);
+            ret.Add(Jsonname.Roomname, jsonParse.GetstringValue(Jsonname.Roomname));
+            return ret;
+        }
         public string[] getRefreshnickarray(string data){
             JsonParse jsonParse = new JsonParse(data);
             string[] s=jsonParse.GetstringArrayValue("refreshnickarray");
+            return s;
+        }
+        public string[] getRefreshchatnickarray(string data)
+        {
+            JsonParse jsonParse = new JsonParse(data);
+            string[] s = jsonParse.GetstringArrayValue("refreshchatnickarray");
             return s;
         }
         public string deletenickinfo(string[] removenickarray,string nickname)
@@ -134,6 +147,13 @@ namespace WpfApp1.Modules
             ret.Add(new JsonStringValue(Jsonname.Nickname, nickname));
             return ret.ToString();
         }
+        public string Changeroomnameinfo(string message,string usernickname)
+        {
+            JsonObjectCollection ret = new JsonObjectCollection();
+            ret.Add(new JsonStringValue(Jsonname.Roomname, message));
+            ret.Add(new JsonStringValue(Jsonname.Nickname, usernickname));
+            return ret.ToString();
+        }
     }
     public class Jsonname
     {
@@ -144,5 +164,6 @@ namespace WpfApp1.Modules
         public const string Phone = "Phone";
         public const string Usernumber = "Usernumber";
         public const string Message = "Message";
+        public const string Roomname = "Roomname";
     }
 }

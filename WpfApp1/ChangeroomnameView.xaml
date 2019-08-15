@@ -1,0 +1,40 @@
+﻿<Window x:Class="WpfApp1.ChangeroomnameView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApp1"
+        mc:Ignorable="d"
+        Title="ChangeroomnameView"  Height="200" Width="400">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="20*"/>
+            <RowDefinition Height="30*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Label Content="방 이름을 수정해주세요" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"></Label>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="30*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="30*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <Label Content="방 이름" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+            </Grid>
+            <Grid Grid.Column="1">
+                <TextBox Text="{Binding Path=Roomchangename,UpdateSourceTrigger=PropertyChanged}" >
+                    <TextBox.InputBindings>
+                        <KeyBinding Key="Enter" Command="{Binding Path=Changeroomnamecommand}"></KeyBinding>
+                    </TextBox.InputBindings>
+                </TextBox>
+            </Grid>
+            <Grid Grid.Column="2">
+                <Button Content="수정" Command="{Binding Path=Changeroomnamecommand}"></Button>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

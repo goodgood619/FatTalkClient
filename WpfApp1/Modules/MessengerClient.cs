@@ -125,6 +125,21 @@ namespace WpfApp1.Modules
             message.message = json.sendjoinchatinfo(blockedid, blocknickname);
             return Send(message);
         }
+        public bool requestRefreshchatnickarray(int chatnumber,string usernickname)
+        {
+            TCPmessage message = new TCPmessage();
+            message.Command = Command.Refreshchatnickarray;
+            message.Chatnumber = chatnumber;
+            message.message = json.nicknamecheckinfo(usernickname);
+            return Send(message);
+        }
+        public bool requestChangeroomname(int chatnumber,string roomname,string usernickname)
+        {
+            TCPmessage message = new TCPmessage();
+            message.Command = Command.Changeroomname;
+            message.message = json.Changeroomnameinfo(roomname,usernickname);
+            return Send(message);
+        }
         public override void ResponseMessage(TCPmessage message)
         {
             if (domessage != null)

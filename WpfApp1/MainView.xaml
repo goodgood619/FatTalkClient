@@ -11,11 +11,6 @@
     <Window.DataContext>
         <Binding Path="Main" Source="{StaticResource ViewModelLocator}"/>
     </Window.DataContext>
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Closing">
-            <i:InvokeCommandAction Command="{Binding Path=Logoutcommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="500*"/>
@@ -89,9 +84,9 @@
                                 <i:EventTrigger EventName="SelectionChanged">
                                     <ei:ChangePropertyAction TargetObject="{Binding Mode=OneWay}" PropertyName="SelectFriendlist" Value="{Binding Path=SelectedItems,ElementName=Myfriend}"/>
                                 </i:EventTrigger>
-                              </i:Interaction.Triggers>
+                            </i:Interaction.Triggers>
                         </ListBox>
-                        
+
                     </Grid>
                     <Grid Grid.Row="3">
                         <Grid.ColumnDefinitions>

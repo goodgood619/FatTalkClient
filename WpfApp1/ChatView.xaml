@@ -25,8 +25,16 @@
                 <ColumnDefinition Width="50*"/>
                 <ColumnDefinition Width="50*"/>
             </Grid.ColumnDefinitions>
-            <Button Content="인원초대" Grid.Row="0" Grid.Column="1" Command="{Binding Path=Joinchatcommand}"/>
-            <Button Content="방나가기" Grid.Row="0" Grid.Column="2" Command="{Binding Path=Outchatcommand}"/>
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="15*"/>
+                    <ColumnDefinition Width="100*"/>
+                </Grid.ColumnDefinitions>
+                <Label Content="방 이름: " Grid.Column="0" FontSize="20"></Label>
+                <Label Content="{Binding Path=Roomname}" Grid.Column="1" FontSize="18"></Label>
+            </Grid> 
+            <Button Content="방이름수정" Grid.Row="0" Grid.Column="1" Command="{Binding Path=Roomchangecommand}"/>
+            <Button Content="인원초대" Grid.Row="0" Grid.Column="2" Command="{Binding Path=Joinchatcommand}"/>
         </Grid>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
@@ -55,6 +63,7 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="30*"/>
+                    <RowDefinition Height="30*"/>
                     <RowDefinition Height="200*"/>
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
@@ -66,19 +75,15 @@
                     <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=NICKNAME,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center"/>
                 </Grid>
                 <Label Content="유저목록" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></Label>
-                <Grid Grid.Row="2">
-                <ListBox x:Name="ChatFriendlist" ItemsSource="{Binding Path=Friendlist}" SelectionMode="Multiple">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock Text="{Binding Path=Fnickname}"/>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                    <i:Interaction.Triggers>
-                        <i:EventTrigger EventName="SelectionChanged">
-                                <ei:ChangePropertyAction TargetObject="{Binding Mode=OneWay}" PropertyName="SelectFriendlist" Value="{Binding Path=SelectedItems,ElementName=ChatFriendlist}"/>
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>
-                </ListBox>
+                <Button Content="새로고침" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding Path=Refreshfriendlistcommand}" FontSize="18"/>
+                <Grid Grid.Row="3">
+                <ListBox ItemsSource="{Binding Path=Friendlist}">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Fnickname}"/>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Grid>
             </Grid>
         </Grid>

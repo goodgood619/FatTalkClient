@@ -18,7 +18,6 @@ namespace WpfApp1.ViewModel
         public ViewModelLocator()
         {
 
-            //ServiceLocator.SetLocatorProvider(()=>SimpleIoc.Default);
             SimpleIoc.Default.Register<Imessanger, MessangerService>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<JoinViewModel>();

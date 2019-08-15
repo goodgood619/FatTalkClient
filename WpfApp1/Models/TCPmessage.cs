@@ -70,6 +70,8 @@ namespace WpfApp1.Models
         Nicknamecheck,
         ReceiveJoinchat,
         Blockfriend,
-        NotBlockfriend
+        NotBlockfriend,
+        Refreshchatnickarray,
+        Changeroomname
     }
 }

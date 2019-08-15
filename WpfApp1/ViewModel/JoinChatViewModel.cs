@@ -43,23 +43,24 @@ namespace WpfApp1.ViewModel
             switch (tcpmessage.Command)
             {
                 case Command.Joinchat:
-                    Validjoinchat(tcpmessage.check,tcpmessage.message,tcpmessage.Chatnumber);
-                    break;
-                case Command.ReceiveJoinchat:
-                    Validreceivejoinchat(tcpmessage.check,tcpmessage.Chatnumber,tcpmessage.message);
+                    Validjoinchat(tcpmessage.check,tcpmessage.message);
                     break;
             }
         }
-        public void Validreceivejoinchat(int check,int Chatnumber,string message)
+        public void closeWindow()
         {
-            switch (check)
+            App.Current.Dispatcher.InvokeAsync(() =>
             {
-                
-               
-            }
-
+                foreach (Window window in Application.Current.Windows)
+                {
+                    if (window.DataContext == this)
+                    {
+                        window.Close();
+                    }
+                }
+            });
         }
-        public void Validjoinchat(int check, string message, int Chatnumber)
+        public void Validjoinchat(int check, string message)
         {
             // 채팅하면서 이제 중간에 계속 로그아웃을 했는지를 체크를 해줘야함
             switch (check)
@@ -87,6 +88,10 @@ namespace WpfApp1.ViewModel
                 case 5: // 왜 2번뜨지
                     MessageBox.Show("초대할 아이디를 친구차단했거나, 초대할 아이디인 사람이 친구차단을 했습니다.");
                     JoinchatId = string.Empty;
+                    break;
+                case 6:
+                    MessageBox.Show("현재 아이디가 로그아웃된 상태입니다.");
+                    closeWindow();
                     break;
             }
         }
