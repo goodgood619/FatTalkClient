@@ -120,13 +120,13 @@ namespace WpfApp1.ViewModel
                     ValidMakechat(tcpmessage.message, tcpmessage.check,tcpmessage.Chatnumber);
                     break;
                 case Command.ReceiveJoinchat:
-                    Validreceivejoinchat(tcpmessage.check, tcpmessage.Chatnumber, tcpmessage.message);
+                    Validreceivejoinchat(tcpmessage.check, tcpmessage.Chatnumber);
                     break;
             }
 
         }
 
-        public void Validreceivejoinchat(int check, int Chatnumber, string message)
+        public void Validreceivejoinchat(int check, int Chatnumber)
         {
             switch (check)
             {
@@ -135,7 +135,7 @@ namespace WpfApp1.ViewModel
                     
                     ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
                     chatViewModel.Chatnumber = Chatnumber;
-                    chatViewModel.NICKNAME = message;
+                    chatViewModel.Usernickname = NICKNAME;
                     chatViewModels.Add(chatViewModel);
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
@@ -206,8 +206,8 @@ namespace WpfApp1.ViewModel
                 NICKNAME = string.Empty;
                 MainWindow login = new MainWindow();
                 login.Show();
+                closeWindow();
             });
-            closeWindow();
         }
         public void ValidFresh(int friendcnt,string message)
         {
@@ -326,7 +326,7 @@ namespace WpfApp1.ViewModel
             App.Current.Dispatcher.InvokeAsync(() =>
             {
                 BlockfriendView blockfriendView = new BlockfriendView();
-                blockfriendView.Show();
+                blockfriendView.ShowDialog();
             });
 
         }

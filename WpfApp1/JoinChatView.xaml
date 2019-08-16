@@ -8,6 +8,7 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="JoinChatView" Height="200" Width="200">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30*"/>

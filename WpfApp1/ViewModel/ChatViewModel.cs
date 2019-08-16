@@ -31,11 +31,16 @@ namespace WpfApp1.ViewModel
         private Imessanger _imessanger;
         private JsonHelp jsonHelp;
         private ObservableCollection<Frienddata> _Friendlist;
+        private List<JoinChatViewModel> joinChatViewModels;
+        private List<ChangeroomnameViewModel> changeroomnameViewModels;
         public ChatViewModel(Imessanger imessanger)
         {
             messenger = imessanger.GetMessenger(ResponseMessage);
             Messages = new ObservableCollection<Chatdata>();
             _Friendlist = new ObservableCollection<Frienddata>();
+
+            joinChatViewModels = new List<JoinChatViewModel>();
+            changeroomnameViewModels = new List<ChangeroomnameViewModel>();
             Chatnumber = 0;
             Usernickname = string.Empty;
             _imessanger = imessanger;
@@ -125,6 +130,14 @@ namespace WpfApp1.ViewModel
         }
         public void closeWindow()
         {
+            for (int i = 0; i < joinChatViewModels.Count; i++)
+            {
+                joinChatViewModels[i].closeWindow();
+            }
+            for (int i = 0; i < changeroomnameViewModels.Count; i++)
+            {
+                changeroomnameViewModels[i].closeWindow();
+            }
             App.Current.Dispatcher.InvokeAsync(() =>
             {
                 foreach (Window window in Application.Current.Windows)
@@ -155,7 +168,7 @@ namespace WpfApp1.ViewModel
                     }
                     break;
 
-                case 1: //방을 나간사람
+                case 1: //방을 나간사람,다 close해줘야함
                     if (this.Chatnumber == Chatnumber)
                     {
                         //MessageBox.Show("채팅방을 나갔습니다.");
@@ -189,8 +202,8 @@ namespace WpfApp1.ViewModel
         }
         public string NICKNAME
         {
-            get { return messenger.userdata.nickname; }
-            set { usernickname = messenger.userdata.nickname; RaisePropertyChanged("NICKNAME"); }
+            get { return Usernickname; }
+            set { usernickname = Usernickname; RaisePropertyChanged("NICKNAME"); }
         }
         public ICommand Joinchatcommand
         {
@@ -204,7 +217,8 @@ namespace WpfApp1.ViewModel
         {
             JoinChatViewModel joinChatViewModel = new JoinChatViewModel(_imessanger);
             joinChatViewModel.Chatnumber = this.Chatnumber;
-            joinChatViewModel.Usernickname = NICKNAME;
+            joinChatViewModel.Usernickname = Usernickname;
+            joinChatViewModels.Add(joinChatViewModel);
             App.Current.Dispatcher.InvokeAsync(() =>
             {
                 JoinChatView joinChatView = new JoinChatView(joinChatViewModel);
@@ -224,9 +238,9 @@ namespace WpfApp1.ViewModel
             //내가 보낸거
             App.Current.Dispatcher.InvokeAsync(() =>
             {
-                 Messages.Add(new Chatdata(sendchatmessage,messenger.userdata.nickname,Chatnumber));
+                 Messages.Add(new Chatdata(sendchatmessage,Usernickname,Chatnumber));
             });
-            if (!messenger.requestSendchatcommand(Chatnumber, messenger.userdata.nickname,sendchatmessage))
+            if (!messenger.requestSendchatcommand(Chatnumber,Usernickname,sendchatmessage))
             {
                 Sendchatting = string.Empty;
                 MessageBox.Show("서버와 연결이 끊겼거나, 상대방이 채팅방을 나갔습니다");
@@ -242,7 +256,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executeoutchat()
         {
-            if (!messenger.requestOutchatcommand(Chatnumber, messenger.userdata.nickname))
+            if (!messenger.requestOutchatcommand(Chatnumber, Usernickname))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }
@@ -259,7 +273,8 @@ namespace WpfApp1.ViewModel
         {
             ChangeroomnameViewModel changeroomnameViewModel = new ChangeroomnameViewModel(_imessanger);
             changeroomnameViewModel.Chatnumber = Chatnumber;
-            changeroomnameViewModel.Usernickname = messenger.userdata.nickname;
+            changeroomnameViewModel.Usernickname = Usernickname;
+            changeroomnameViewModels.Add(changeroomnameViewModel);
             App.Current.Dispatcher.InvokeAsync(() =>
             {
                 ChangeroomnameView changeroomnameView = new ChangeroomnameView(changeroomnameViewModel);
@@ -277,7 +292,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executerefreshfriendlist()
         {
-            if (!messenger.requestRefreshchatnickarray(Chatnumber, messenger.userdata.nickname))
+            if (!messenger.requestRefreshchatnickarray(Chatnumber, Usernickname))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니당");
             }
