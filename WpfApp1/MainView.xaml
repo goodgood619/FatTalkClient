@@ -8,14 +8,14 @@
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
         Title="MainView" Height="450" Width="800">
+    <Window.DataContext>
+        <Binding Path="Main" Source="{StaticResource ViewModelLocator}"/>
+    </Window.DataContext>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Closing">
             <i:InvokeCommandAction Command="{Binding Path=Logoutcommand}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
-    <Window.DataContext>
-        <Binding Path="Main" Source="{StaticResource ViewModelLocator}"/>
-    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="500*"/>

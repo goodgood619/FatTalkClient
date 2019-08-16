@@ -132,7 +132,6 @@ namespace WpfApp1.ViewModel
             {
                 case 1:
                     MessageBox.Show("방에 초대되었습니다.");
-                    
                     ChatViewModel chatViewModel = new ChatViewModel(_imessanger);
                     chatViewModel.Chatnumber = Chatnumber;
                     chatViewModel.Usernickname = NICKNAME;
@@ -206,8 +205,8 @@ namespace WpfApp1.ViewModel
                 NICKNAME = string.Empty;
                 MainWindow login = new MainWindow();
                 login.Show();
-                closeWindow();
             });
+            closeWindow();
         }
         public void ValidFresh(int friendcnt,string message)
         {
@@ -233,7 +232,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executefresh()
         {
-            if (!messenger.requestFreshcommand(messenger.userdata.nickname))
+            if (!messenger.requestFreshcommand(NICKNAME))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }
@@ -248,7 +247,7 @@ namespace WpfApp1.ViewModel
         }
         public void Executelogout()
         {
-            if (!messenger.requestLogout(messenger.userdata.nickname))
+            if (!messenger.requestLogout(NICKNAME))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니당");
             }
@@ -286,7 +285,7 @@ namespace WpfApp1.ViewModel
             {
                 sendarray[i] = Selectlist[i].Fnickname.ToString();
             }
-            if (!messenger.requestDeletefriendcommand(sendarray,messenger.userdata.nickname))
+            if (!messenger.requestDeletefriendcommand(sendarray,NICKNAME))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }
@@ -307,7 +306,7 @@ namespace WpfApp1.ViewModel
             {
                 sendarray2[i] = Selectlist[i].Fnickname.ToString();
             }
-            if (!messenger.requestMakechatcommand(sendarray2,messenger.userdata.nickname))
+            if (!messenger.requestMakechatcommand(sendarray2,NICKNAME))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니다.");
             }

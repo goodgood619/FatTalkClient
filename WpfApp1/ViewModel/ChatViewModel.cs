@@ -236,13 +236,15 @@ namespace WpfApp1.ViewModel
         public void Executesendchat()
         {
             //내가 보낸거
-            App.Current.Dispatcher.InvokeAsync(() =>
+            if (this.Chatnumber == Chatnumber)
             {
-                 Messages.Add(new Chatdata(sendchatmessage,Usernickname,Chatnumber));
-            });
+                App.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    Messages.Add(new Chatdata(sendchatmessage, Usernickname, Chatnumber));
+                });
+            }
             if (!messenger.requestSendchatcommand(Chatnumber,Usernickname,sendchatmessage))
             {
-                Sendchatting = string.Empty;
                 MessageBox.Show("서버와 연결이 끊겼거나, 상대방이 채팅방을 나갔습니다");
             }
         }
