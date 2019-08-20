@@ -215,15 +215,26 @@ namespace WpfApp1.ViewModel
         }
         public void Executejoinchat()
         {
-            JoinChatViewModel joinChatViewModel = new JoinChatViewModel(_imessanger);
-            joinChatViewModel.Chatnumber = this.Chatnumber;
-            joinChatViewModel.Usernickname = Usernickname;
-            joinChatViewModels.Add(joinChatViewModel);
-            App.Current.Dispatcher.InvokeAsync(() =>
+            if (joinChatViewModels.Count == 0)
             {
-                JoinChatView joinChatView = new JoinChatView(joinChatViewModel);
-                joinChatView.Show();
-            });
+                JoinChatViewModel joinChatViewModel = new JoinChatViewModel(_imessanger);
+                joinChatViewModel.Chatnumber = this.Chatnumber;
+                joinChatViewModel.Usernickname = Usernickname;
+                joinChatViewModels.Add(joinChatViewModel);
+                App.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    JoinChatView joinChatView = new JoinChatView(joinChatViewModel);
+                    joinChatView.Show();
+                });
+            }
+            else
+            {
+                App.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    JoinChatView joinChatView = new JoinChatView(joinChatViewModels[0]);
+                    joinChatView.Show();
+                });
+            }
         }
         public ICommand Sendchatcommand
         {
@@ -236,17 +247,19 @@ namespace WpfApp1.ViewModel
         public void Executesendchat()
         {
             //내가 보낸거
-            if (this.Chatnumber == Chatnumber)
-            {
-                App.Current.Dispatcher.InvokeAsync(() =>
+                var sendchatMessage = sendchatmessage;
+                if (this.Chatnumber == Chatnumber)
                 {
-                    Messages.Add(new Chatdata(sendchatmessage, Usernickname, Chatnumber));
-                });
-            }
-            if (!messenger.requestSendchatcommand(Chatnumber,Usernickname,sendchatmessage))
-            {
-                MessageBox.Show("서버와 연결이 끊겼거나, 상대방이 채팅방을 나갔습니다");
-            }
+                    App.Current.Dispatcher.InvokeAsync(() =>
+                    {
+                        Messages.Add(new Chatdata(sendchatMessage, Usernickname, Chatnumber));
+                    });
+                }
+                if (!messenger.requestSendchatcommand(Chatnumber, Usernickname, sendchatmessage))
+                {
+                    MessageBox.Show("서버와 연결이 끊겼거나, 상대방이 채팅방을 나갔습니다");
+                }
+                Sendchatting = string.Empty;
         }
 
         public ICommand Outchatcommand {
@@ -273,15 +286,26 @@ namespace WpfApp1.ViewModel
         }
         public void Executeroomchange()
         {
-            ChangeroomnameViewModel changeroomnameViewModel = new ChangeroomnameViewModel(_imessanger);
-            changeroomnameViewModel.Chatnumber = Chatnumber;
-            changeroomnameViewModel.Usernickname = Usernickname;
-            changeroomnameViewModels.Add(changeroomnameViewModel);
-            App.Current.Dispatcher.InvokeAsync(() =>
+            if (changeroomnameViewModels.Count == 0)
             {
-                ChangeroomnameView changeroomnameView = new ChangeroomnameView(changeroomnameViewModel);
-                changeroomnameView.Show();
-            });
+                ChangeroomnameViewModel changeroomnameViewModel = new ChangeroomnameViewModel(_imessanger);
+                changeroomnameViewModel.Chatnumber = Chatnumber;
+                changeroomnameViewModel.Usernickname = Usernickname;
+                changeroomnameViewModels.Add(changeroomnameViewModel);
+                App.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    ChangeroomnameView changeroomnameView = new ChangeroomnameView(changeroomnameViewModel);
+                    changeroomnameView.Show();
+                });
+            }
+            else
+            {
+                App.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    ChangeroomnameView changeroomnameView = new ChangeroomnameView(changeroomnameViewModels[0]);
+                    changeroomnameView.Show();
+                });
+            }
 
         }
         public ICommand Refreshfriendlistcommand

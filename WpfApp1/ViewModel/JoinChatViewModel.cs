@@ -70,7 +70,7 @@ namespace WpfApp1.ViewModel
                     JoinchatId = string.Empty;
                     break;
                 case 1:
-                    //MessageBox.Show("친구가 초대되었습니다.");
+                    MessageBox.Show("친구가 초대되었습니다.");
                     JoinchatId = string.Empty;
                     break;
                 case 2: //오류
@@ -85,7 +85,7 @@ namespace WpfApp1.ViewModel
                     MessageBox.Show("이미 이 방에 초대가 되어있는 상태입니다. 다시 입력해주세요");
                     JoinchatId = string.Empty;
                     break;
-                case 5: // 왜 2번뜨지
+                case 5: 
                     MessageBox.Show("초대할 아이디를 친구차단했거나, 초대할 아이디인 사람이 친구차단을 했습니다.");
                     JoinchatId = string.Empty;
                     break;
