@@ -107,9 +107,9 @@ namespace WpfApp1.ViewModel
         {
             switch (tcpmessage.Command)
             {
-                case Command.logout:
-                    Validlogout(tcpmessage.check);
-                    break;
+               // case Command.logout:
+               //     Validlogout();
+               //     break;
                 case Command.Removefriend:
                     ValidRemove(tcpmessage.check);
                     break;
@@ -189,7 +189,7 @@ namespace WpfApp1.ViewModel
             }
         }
 
-        public void Validlogout(int check)
+        public void Validlogout()
         {
             
             // 여기에 현재 nickname으로 열려있는 모든 chatview, joinchatview, roomnamechangeview를 싹다 지워야함
@@ -204,7 +204,7 @@ namespace WpfApp1.ViewModel
                 Friendlist.Clear();
                 NICKNAME = string.Empty;
                 MainWindow login = new MainWindow();
-                login.Show();
+                login.ShowDialog();
             });
             closeWindow();
         }
@@ -250,6 +250,23 @@ namespace WpfApp1.ViewModel
             if (!messenger.requestLogout(NICKNAME))
             {
                 MessageBox.Show("서버와 연결이 끊겼습니당");
+            }
+            else
+            {
+                messenger.userdata.Reset();
+                App.Current.Dispatcher.InvokeAsync(() =>
+                {
+                    for (int i = 0; i < chatViewModels.Count; i++)
+                    {
+                        chatViewModels[i].closeWindow();
+                    }
+                    Fcnt = 0;
+                    Friendlist.Clear();
+                    NICKNAME = string.Empty;
+                    MainWindow login = new MainWindow();
+                    login.ShowDialog();
+                });
+                closeWindow();
             }
         }
         public ICommand Plusfriendcommand

@@ -61,7 +61,7 @@ namespace WpfApp1.ViewModel
                     App.Current.Dispatcher.InvokeAsync(() =>
                     {
                         MainView mainview = new MainView();
-                        mainview.Show();
+                        mainview.ShowDialog();
                     });
                     closeWindow();
                     break;
@@ -149,6 +149,4 @@ namespace WpfApp1.ViewModel
             }
         }
     }
-
-
 }

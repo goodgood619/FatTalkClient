@@ -128,6 +128,14 @@ namespace WpfApp1.ViewModel
                 return relayCommand;
             }
         }
+        public ICommand Phonecheckcommand
+        {
+            get
+            {
+                RelayCommand relayCommand = new RelayCommand(ExecutePhonecheck);
+                return relayCommand;
+            }
+        }
         public void ExecuteNicknamecommand()
         {
             if (string.IsNullOrEmpty(nickname))
@@ -196,6 +204,45 @@ namespace WpfApp1.ViewModel
                 }
             });
         }
-
+        public void ExecutePhonecheck()
+        {
+            if (string.IsNullOrEmpty(phone))
+            {
+                MessageBox.Show("폰번호를 입력하세용");
+            }
+            else
+            {
+                if (phone.Length < 10)
+                {
+                    MessageBox.Show("숫자 10자리를 입력을 해주세요");
+                }
+                else if(phone.Length == 10)
+                {
+                    bool notnumbercheck = false;
+                    for(int i = 0; i < phone.Length; i++)
+                    {
+                        if (phone[i] >= '0' && phone[i] <= '9') continue;
+                        else
+                        {
+                            notnumbercheck = true;
+                            break;
+                        }
+                    }
+                    if (notnumbercheck)
+                    {
+                        MessageBox.Show("핸드폰 번호 숫자 10자리를 입력해주세요");
+                    }
+                    else
+                    {
+                        MessageBox.Show("핸드폰 번호가 확인되었습니다.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("-이나 특수문자를 제외한 숫자 10자리를 입력해주세요");
+                }
+            }
+        }
+        
     }
 }

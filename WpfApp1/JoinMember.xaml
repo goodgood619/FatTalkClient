@@ -69,13 +69,14 @@
                     <KeyBinding Key="Enter" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </TextBox.InputBindings>
             </TextBox>
-            <Button Content="닉네임 중복 확인" Grid.Row="2" Grid.Column="2" Command="{Binding Path=Nicknamecheckcommand}"/>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=PHONE,UpdateSourceTrigger=PropertyChanged}">
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=PHONE,UpdateSourceTrigger=PropertyChanged}" Height="35" VerticalAlignment="Bottom">
                 <TextBox.InputBindings>
                     <KeyBinding Key="Enter" Command="{Binding Path=JoinMembercommand}" CommandParameter="{Binding ElementName=Password}"/>
                 </TextBox.InputBindings>
             </TextBox>
             <Button Content="아이디 중복 확인" Grid.Row="0" Grid.Column="2" Command="{Binding Path=Idcheckcommand}"/>
+            <Button Content="닉네임 중복 확인" Grid.Row="2" Grid.Column="2" Command="{Binding Path=Nicknamecheckcommand}"/>
+            <Button Content="핸드폰 번호 체크" Grid.Row="3" Grid.Column="2" Command="{Binding Path=Phonecheckcommand}"/>
         </Grid>
         <Grid Grid.Row="2">
             <Grid.ColumnDefinitions>
